@@ -9,6 +9,11 @@ import SalesStructure from './components/SalesStructure';
 import Dashboard from './components/Dashboard';
 import Home from './pages/Home';
 import Layout from './pages/Layout';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import axios from 'axios';
+import ProtectedDashboard from './components/ProtectedDashboard';
+axios.defaults.baseURL = "http://localhost:8000"
 
 const App = () => {
   return (
@@ -17,15 +22,18 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path='/' element={<Home />} />
+
             <Route path='/dashboard' element={<Dashboard />} />
+
             <Route path='/mern' element={<CourseStructure />} />
             <Route path='/angular' element={<AngularStructure />} />
             <Route path='/java' element={<JavaStructure />} />
             <Route path='/python' element={<PythonStructure />} />
             <Route path='/salesforce' element={<SalesStructure />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
           </Routes>
         </Layout>
-
       </BrowserRouter>
 
     </div>

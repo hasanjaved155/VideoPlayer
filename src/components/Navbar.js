@@ -1,7 +1,12 @@
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const handlelogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    }
     return (
         <Fragment>
             <div className='fixed w-full top-0 left-0 border-b-2'>
@@ -29,14 +34,23 @@ const Navbar = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="flex items-center space-x-6 rtl:space-x-reverse">
-                            {/* <Link to="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</Link> */}
-                            <Link to="/login" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Login</Link>
-                        </div>
+                        {!localStorage.getItem('token') ? (
+                            <div div className="flex items-center space-x-6 rtl:space-x-reverse">
+                                {/* <Link to="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</Link> */}
+                                <Link to="/register" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Register</Link>
+                                <Link to="/login" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Login</Link>
+                            </div>
+                        ) : (
+                            <div className="flex items-center space-x-6 rtl:space-x-reverse">
+
+                                <Link className="text-blue-600 dark:text-blue-500 text-xl hover:underline" onClick={handlelogout}>Logout</Link>
+                            </div>
+                        )
+                        }
                     </div>
                 </nav>
-            </div>
-        </Fragment>
+            </div >
+        </Fragment >
     )
 }
 
