@@ -25,11 +25,13 @@ const App = () => {
 
             <Route path='/dashboard' element={<Dashboard />} />
 
-            <Route path='/mern' element={<CourseStructure />} />
-            <Route path='/angular' element={<AngularStructure />} />
-            <Route path='/java' element={<JavaStructure />} />
-            <Route path='/python' element={<PythonStructure />} />
-            <Route path='/salesforce' element={<SalesStructure />} />
+            <Route element={<ProtectedDashboard />}>
+              <Route path='/mern' element={<CourseStructure />} />
+              <Route path='/angular' element={<AngularStructure />} />
+              <Route path='/java' element={<JavaStructure />} />
+              <Route path='/python' element={<PythonStructure />} />
+              <Route path='/salesforce' element={<SalesStructure />} />
+            </Route>
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
           </Routes>

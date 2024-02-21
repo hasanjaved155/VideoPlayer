@@ -3,10 +3,14 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 const ProtectedDashboard = () => {
     const navigate = useNavigate()
-    useEffect(() => {
+
+    const pageReload = () => {
         if (!localStorage.getItem('token')) {
             navigate('/login')
         }
+    }
+    useEffect(() => {
+        pageReload();
     }, [])
     return (
         <>
