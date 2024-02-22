@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
+import dashboardRoutes from './routes/dashboardRoutes.js';
 import cors from 'cors';
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(morgan('dev'));
 
 
 app.use('/auth', userRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 
 app.get('/', (req, res) => {

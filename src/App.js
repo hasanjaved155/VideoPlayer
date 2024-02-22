@@ -6,26 +6,50 @@ import AngularStructure from './components/AngularStructure';
 import JavaStructure from './components/JavaStructure';
 import PythonStructure from './components/PythonStructure';
 import SalesStructure from './components/SalesStructure';
-import Dashboard from './components/Dashboard';
 import Home from './pages/Home';
 import Layout from './pages/Layout';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import axios from 'axios';
 import ProtectedDashboard from './components/ProtectedDashboard';
+import CareerJourneyStories from './components/CareerJourneyStories';
+import Dashboard from './admindashboard/Dashboard';
+import CreateDashboard from './admindashboard/CreateDashboard';
+import { useDispatch } from 'react-redux';
+import { getAllData, getFilterData } from './store/dashboardSlice';
+import { useEffect } from 'react';
+import FilterData from './searchData/FilterData';
 axios.defaults.baseURL = "http://localhost:8000"
 
 const App = () => {
+
+
+  const dispatch = useDispatch()
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get('/dashboard/get-dashboard');
+      dispatch(getAllData(res.data.dashboards));
+      dispatch(getFilterData(res.data.dashboards))
+    } catch (err) {
+      console.error(`Failed to fetch dashboards: ${err}`);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className='App'>
       <BrowserRouter>
         <Layout>
           <Routes>
             <Route path='/' element={<Home />} />
-
             <Route path='/dashboard' element={<Dashboard />} />
-
+            <Route path='/createDashboard' element={<CreateDashboard />} />
+            <Route path='/filterData' element={<FilterData />} />
             <Route element={<ProtectedDashboard />}>
+              <Route path='/career' element={<CareerJourneyStories />} />
               <Route path='/mern' element={<CourseStructure />} />
               <Route path='/angular' element={<AngularStructure />} />
               <Route path='/java' element={<JavaStructure />} />
