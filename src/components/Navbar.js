@@ -65,7 +65,7 @@ const Navbar = () => {
                         ) : (
                             <div className="flex items-center space-x-6 rtl:space-x-reverse">
                                 <div className="text-blue-600 dark:text-blue-500 text-xl hover:underline cursor-pointer" onClick={handlelogout}>Logout</div>
-                                <Link to="/createDashboard" className="text-gray-600 dark:text-gray-500 text-xl hover:underline">Create Dashboard</Link>
+                                <Link to="/createDashboard" className="text-gray-600 dark:text-gray-500 text-xl hover:underline">Admin Dashboard</Link>
                             </div>
                         )
                         }
