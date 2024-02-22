@@ -18,7 +18,6 @@ import CreateDashboard from './admindashboard/CreateDashboard';
 import { useDispatch } from 'react-redux';
 import { getAllData, getFilterData } from './store/dashboardSlice';
 import { useEffect } from 'react';
-import FilterData from './searchData/FilterData';
 axios.defaults.baseURL = "http://localhost:8000"
 
 const App = () => {
@@ -47,7 +46,6 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/createDashboard' element={<CreateDashboard />} />
-            <Route path='/filterData' element={<FilterData />} />
             <Route element={<ProtectedDashboard />}>
               <Route path='/career' element={<CareerJourneyStories />} />
               <Route path='/mern' element={<CourseStructure />} />

@@ -7,7 +7,6 @@ import { getFilterData } from '../store/dashboardSlice';
 const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
     const [searchQuery, setSearchQuery] = useState('');
     const allData = useSelector((store) => store.dashboardSlice.allData);
 
@@ -20,8 +19,8 @@ const Navbar = () => {
         navigate('/login');
     }
 
-    const handleSearch = (event) => {
-        setSearchQuery(event.target.value);
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
         const filteredData = allData.filter((data) => {
             return data.name.toLowerCase().includes(searchQuery.toLowerCase())
         })

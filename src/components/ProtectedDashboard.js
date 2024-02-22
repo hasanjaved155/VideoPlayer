@@ -10,6 +10,7 @@ const ProtectedDashboard = () => {
         }
     }
     useEffect(() => {
+
         pageReload();
     }, [])
     return (
