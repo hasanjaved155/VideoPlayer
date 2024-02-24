@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getUserConfiguration } from '../store/userSlice';
 
 const Register = () => {
+
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -18,10 +22,12 @@ const Register = () => {
                 '/auth/login',
                 { email, password }
             );
+            dispatch(getUserConfiguration(res.data.user));
             console.log(res);
             if (res && res.data.success) {
                 alert(res.data.message);
                 localStorage.setItem('token', JSON.stringify(res.data.token));
+                localStorage.setItem('user', JSON.stringify(res.data.user));
                 navigate("/dashboard");
             } else if (!res.data.success) {
                 alert(res.data.message);

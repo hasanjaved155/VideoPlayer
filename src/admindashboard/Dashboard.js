@@ -1,3 +1,4 @@
+//import axios from 'axios';
 import React, { Fragment, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
@@ -8,9 +9,21 @@ const Dashboard = () => {
     const allData = useSelector((store) => store.dashboardSlice.filterData);
 
     useEffect(() => {
-        console.log(allData)
+        //console.log(allData)
         setDashboards(allData)
     }, [allData])
+
+    // const fetchData = async () => {
+    //     try {
+    //         const res = await axios.get('/dashboard/get-dashboard');
+    //         setDashboards(res.data.dashboards);
+    //     } catch (err) {
+    //         console.error(`Failed to fetch dashboards: ${err}`);
+    //     }
+    // };
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
 
     return (

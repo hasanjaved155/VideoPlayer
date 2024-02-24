@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -15,9 +15,15 @@ import { useDispatch } from 'react-redux';
 import { getAllData, getFilterData } from './store/dashboardSlice';
 import { useEffect } from 'react';
 import CourseDetails from './components/CourseDetails';
+import AdminDashboard from './admindashboard/AdminDashboard';
+import ShowAllUsers from './admindashboard/ShowAllUsers';
+import CreatePlaylist from './admindashboard/CreatePlaylist';
+import ProtectedAdmin from './components/ProtectedAdmin';
 axios.defaults.baseURL = "http://localhost:8000"
 
 const App = () => {
+
+  const [playlist, setPlaylist] = useState([]);
 
 
   const dispatch = useDispatch()
@@ -31,51 +37,25 @@ const App = () => {
       console.error(`Failed to fetch dashboards: ${err}`);
     }
   };
+
+
+
+  const fetchPlaylist = async () => {
+    try {
+      const res = await axios.get('/playlist/allPlaylist');
+      setPlaylist(res.data.playlist);
+
+    } catch (err) {
+      console.error(`Failed to fetch dashboards: ${err}`);
+    }
+  };
+
+
   useEffect(() => {
     fetchData();
+
+    fetchPlaylist();
   }, []);
-
-
-  const listarr = [
-    {
-      path: "/career",
-      listId: "PLXFMnNRcDZnaUkb3lwqe-oARx3BcJ4t25",
-      name: "Career Journey Stories - Sayatan Saha | Fireside Chat With Debamitra Banerjee",
-      lecId: "QQB93QyEHJ0"
-    },
-    {
-      path: "/mern",
-      listId: "PLXFMnNRcDZnYw1VE_sSFTD5l9FVaZ2EZJ",
-      name: "#Lecture-0 | Community Training Program | MERN Stack | Every Sunday | PCS GLOBAL",
-      lecId: "orbBzzq7ofM",
-    },
-    {
-      path: "/java",
-      listId: "PLXFMnNRcDZnYm92fT94YgZTLJQ5CJq2eT",
-      name: "Java Training Session 1 of Team 26 | PCS Global | as on 21st Sept 2023 by Debojyoti Saha",
-      lecId: "RbN7EYa8PYs",
-    },
-    {
-      path: "/python",
-      listId: "PLXFMnNRcDZnbVz0GI4lUeyJRegMMeThO7",
-      name: "CELP - Python Session - Day 1 | By Ramakanta | PCS Global PVT LTD. | As on 17th Aug 2023",
-      lecId: "d_l_auG3DT8",
-    },
-    {
-      path: "/salesforce",
-      listId: "PLXFMnNRcDZna1a6W2_BQuPlEKrL6PiPxd",
-      name: "#Session-1- PCS Global - A Hub Of Salesforce | Salesforce Admin | Introduction | PCS Global",
-      lecId: "fhTo0ALft9U",
-    },
-    {
-      path: "/angular",
-      listId: "PLXFMnNRcDZnbx2W2B0-2WBivTR_MV8A1C",
-      name: "PCS Global Angular Session 1 as on 14th May 23 | PCS Global Pvt Ltd | by Debojyoti Saha",
-      lecId: "bPGEOBa_r0I"
-    }
-  ]
-
-
 
   return (
 
@@ -86,9 +66,15 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/createDashboard' element={<CreateDashboard />} />
+            <Route path='/allUsers' element={<ShowAllUsers />} />
+            <Route path='/createPlaylist' element={<CreatePlaylist />} />
+
+            <Route element={<ProtectedAdmin />}>
+              <Route path='/admin' element={<AdminDashboard />} />
+            </Route>
 
             <Route element={<ProtectedDashboard />}>
-              {listarr.map((a) => {
+              {playlist.map((a) => {
                 return <Route path={a.path} element={<CourseDetails listobject={a} />}
                 />
               })}
