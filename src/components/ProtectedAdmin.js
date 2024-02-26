@@ -7,9 +7,12 @@ const ProtectedAdmin = () => {
     //const admin = useSelector(store => store.userSlice.user.role);
     //console.log(admin);
 
+    if (!localStorage.getItem('token')) {
+        return navigate('/login');
+    }
+
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
-
 
     if (user.role !== "admin") {
         return navigate('/dashboard');

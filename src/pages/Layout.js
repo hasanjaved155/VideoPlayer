@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
             <header>
                 <Navbar />
             </header>
-            <main className='mt-52 mb-2'>
+            <main className='mt-48 mb-2 -z-50'>
                 {children}
             </main>
             <footer>

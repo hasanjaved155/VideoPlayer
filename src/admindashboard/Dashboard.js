@@ -13,23 +13,11 @@ const Dashboard = () => {
         setDashboards(allData)
     }, [allData])
 
-    // const fetchData = async () => {
-    //     try {
-    //         const res = await axios.get('/dashboard/get-dashboard');
-    //         setDashboards(res.data.dashboards);
-    //     } catch (err) {
-    //         console.error(`Failed to fetch dashboards: ${err}`);
-    //     }
-    // };
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
-
 
     return (
         <Fragment>
             <div className="flex flex-col items-center justify-center">
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
                     {dashboards.length > 0 && dashboards?.map((item) => {
                         return <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
                             <Link to={item?.link}>

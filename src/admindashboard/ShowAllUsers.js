@@ -4,6 +4,7 @@ import axios from 'axios';
 const ShowAllUsers = () => {
     const [users, setUsers] = useState([]);
 
+
     const fetchUsers = async () => {
         try {
             const res = await axios.get('/auth/users');

@@ -1,19 +1,46 @@
-import React, { Fragment, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { getFilterData } from '../store/dashboardSlice';
+import axios from 'axios';
+import Dropdown from '../dropdown/Dropdown';
+
 
 
 const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState('');
-    const allData = useSelector((store) => store.dashboardSlice.allData);
+    const [allData, setAllData] = useState([]);
+
+
+    //const allData = useSelector((store) => store.dashboardSlice.allData);
     //const admin = useSelector(store => store.userSlice.user.role);
     const user = JSON.parse(localStorage.getItem('user'));
+    //console.log(user);
+
+    const [searchInputVisible, setSearchInputVisible] = useState(false);
+
+    const toggleSearchInputVisibility = () => {
+        setSearchInputVisible(!searchInputVisible);
+    };
 
 
     //console.log(allData);
+
+    const fetchData = async () => {
+        try {
+            const res = await axios.get('/dashboard/get-dashboard');
+            setAllData(res.data.dashboards);
+
+        } catch (err) {
+            console.error(`Failed to fetch dashboards: ${err}`);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
 
     const handlelogout = () => {
@@ -39,12 +66,11 @@ const Navbar = () => {
 
     return (
         <Fragment>
-            <div className='fixed w-full top-0 left-0 border-b-2 z-[999]'>
+            <div className='fixed w-full top-0 left-0 border-b-2 z-[999] bg-white'>
                 <nav className="bg-white border-gray-200 dark:bg-gray-900">
                     <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
                         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                             <img src="https://www.pcsglobal.in/assets/images/logo.jpg" className="" alt="" />
-                            {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
                         </Link>
                         <div className="max-w-screen-xl px-4 py-3 mx-auto">
                             <div className="flex items-center">
@@ -54,7 +80,7 @@ const Navbar = () => {
                                         <Link to="/" className="text-gray-900 dark:text-white hover:underline hover:text-blue-500 duration-200 text-xl" aria-current="page">Home</Link>
                                     </li>
                                     <li>
-                                        <Link to="/company" className="text-gray-900 dark:text-white hover:underline hover:text-blue-500 duration-200 text-xl">Company</Link>
+                                        <Dropdown />
                                     </li>
                                     <li>
                                         <Link to="team" className="text-gray-900 dark:text-white hover:underline hover:text-blue-500 duration-200 text-xl">Team</Link>
@@ -62,62 +88,88 @@ const Navbar = () => {
                                     <li>
                                         <Link to="/dashboard" className="text-gray-900 dark:text-white hover:underline hover:text-blue-500 duration-200 text-xl">Dashboard</Link>
                                     </li>
+                                    <li>
+                                        <button
+                                            type="button"
+                                            className="bg-transparent border-0 p-0 focus:outline-none"
+                                            onClick={toggleSearchInputVisibility}
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-6 h-8 hover:text-blue-500"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                        {!localStorage.getItem('token') ? (
-                            <div div className="flex items-center space-x-6 rtl:space-x-reverse">
-                                {/* <Link to="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</Link> */}
-                                <Link to="/register" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Register</Link>
-                                <Link to="/login" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Login</Link>
-                            </div>
-                        ) : (
-                            <div className="flex items-center space-x-6 rtl:space-x-reverse">
-                                <div className="text-blue-600 dark:text-blue-500 text-xl hover:underline cursor-pointer" onClick={handlelogout}>Logout</div>
-                                <div>
-                                    {user.role === "admin" && <Link to="/admin" className="text-gray-600 dark:text-gray-500 text-xl hover:underline">Admin Dashboard</Link>}
-                                </div>
-                            </div>
-                        )
-                        }
-                    </div>
-                    <div className='mb-4 flex items-center justify-center gap-2'>
-                        <div className="relative w-40">
-                            <select className="block appearance-none w-full h-12 bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded shadow leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline">
-                                <option className='hidden' value="">Category</option>
-                                <option value="option1">Career Journey Stories</option>
-                                <option value="option2">Mern Dashboard</option>
-                                <option value="option3">Angular Dashboard</option>
-                                <option value="option4">Java Deshboard</option>
-                                <option value="option5">Python Dashboard</option>
-                                <option value="option5">Salesforce Dashboard</option>
-                            </select>
-                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12l-5-5 1.5-1.5L10 9l3.5-3.5L15 7z" /></svg>
-                            </div>
-                        </div>
                         <div>
-                            <form className="mx-auto" style={{ width: "900px" }} onSubmit={(e) => e.preventDefault()}>
-                                <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                        </svg>
-                                    </div>
-                                    <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..."
-                                        value={searchQuery} onChange={handleSearch}
-                                        required
-                                    />
+                            {!localStorage.getItem('token') ? (
+                                <div div className="flex items-center space-x-6 rtl:space-x-reverse">
+                                    {/* <Link to="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</Link> */}
+                                    <Link to="/register" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Register</Link>
+                                    <Link to="/login" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Login</Link>
                                 </div>
-                            </form>
+                            ) : (
+                                <div className="flex items-center space-x-6 rtl:space-x-reverse">
+                                    <div className="dropdown dropdown-end">
+                                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                            <div className="avatar placeholder">
+                                                <div className="bg-neutral text-neutral-content rounded-full w-10">
+                                                    <span className="text-xl">{user.name.slice(0, 1)}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div><h1>{user?.name}</h1></div>
+                                        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                                            <li>
+                                                <a className="justify-between">
+                                                    Profile
+                                                    <span className="badge">{user.role}</span>
+                                                </a>
+                                            </li>
+                                            <li>{user.role === "admin" && <Link to="/admin" className="text-gray-600 dark:text-gray-500 hover:text-xl duration-300">Admin Dashboard</Link>}</li>
+                                            <li> <div className="text-blue-600 dark:text-blue-500  hover:text-xl cursor-pointer duration-300" onClick={handlelogout}>Logout</div></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            )
+                            }
+                        </div>
+
+                    </div>
+                    <div className='flex items-center justify-center gap-2 mb-4 z-10'>
+
+                        <div>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    className={`${!searchInputVisible ? 'hidden' : ''} block px-4 py-2 mt-2 text-xl font-medium text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500`}
+                                    placeholder="Type something..."
+                                    value={searchQuery} onChange={handleSearch}
+                                    style={{ width: "900px" }}
+                                />
+                                {/* {searchInputVisible && <button onClick={(e) => setSearchQuery("")}>
+                                    x
+                                </button>} */}
+                            </div>
+
                         </div>
                     </div>
                 </nav>
-
-
-            </div >
-        </Fragment >
+            </div>
+        </Fragment>
     )
 }
 

@@ -5,13 +5,13 @@ const AdminMenu = () => {
         <Fragment>
             <div className="p-6 bg-gray-100 rounded-lg shadow-md w-96 h-72" style={{ marginLeft: "550px" }}>
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">Admin Panel</h4>
-                <Link to="/createDashboard" className="block py-2 px-4 bg-blue-500 text-white rounded-md mb-2 hover:bg-blue-600">
+                <Link to="/admin/createDashboard" className="block py-2 px-4 bg-blue-500 text-white rounded-md mb-2 hover:bg-blue-600">
                     Create Dashboard
                 </Link>
-                <Link to="/createPlaylist" className="block py-2 px-4 bg-blue-500 text-white rounded-md mb-2 hover:bg-blue-600">
+                <Link to="/admin/createPlaylist" className="block py-2 px-4 bg-blue-500 text-white rounded-md mb-2 hover:bg-blue-600">
                     Create Playlist
                 </Link>
-                <Link to="/allUsers" className="block py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <Link to="/admin/allUsers" className="block py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                     All Users
                 </Link>
             </div>
