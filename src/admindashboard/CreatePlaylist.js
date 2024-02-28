@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const CreatePlaylist = () => {
     const [path, setPath] = useState("");
@@ -22,21 +23,21 @@ const CreatePlaylist = () => {
             );
             console.log(res);
             if (res && res.data.success) {
-                alert(res.data.message);
-                navigate("/createDashboard");
+                toast.success(res.data.message);
+                navigate("/dashboard");
             } else if (!res.data.success) {
-                alert(res.data.message);
+                toast.error(res.data.message);
             }
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
         }
     }
     return (
         <div>
-            <section className="mt-4 dark:bg-gray-900 ">
-                <div className="flex flex-col items-center justify-center px-4 py-4 mx-auto lg:py-0">
-                    <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-900">
-                        <div className="p-6 space-y-4 md:space-y-4 sm:p-8">
+            <section className="ml-40 dark:bg-gray-900 " style={{ border: "4mm ridge rgba(211, 220, 50, .6)", boxShadow: "60px -16px teal" }}>
+                <div>
+                    <div className="w-96 bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-900">
+                        <div className="p-6 sm:p-8">
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                 Create Playlist
                             </h1>

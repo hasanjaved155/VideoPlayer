@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const [name, setName] = useState("");
@@ -14,7 +15,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            return alert("password is not match with confirm password")
+            return toast.error("password is not match with confirm password")
         }
         try {
             const res = await axios.post(
@@ -23,13 +24,13 @@ const Register = () => {
             );
             console.log(res);
             if (res && res.data.success) {
-                alert(res.data.message);
+                toast.success(res.data.message);
                 navigate("/login");
             } else if (!res.data.success) {
-                alert(res.data.message);
+                toast.error(res.data.message);
             }
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
         }
     }
     return (

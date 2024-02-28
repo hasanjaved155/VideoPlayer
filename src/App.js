@@ -20,6 +20,7 @@ import ShowAllUsers from './admindashboard/ShowAllUsers';
 import CreatePlaylist from './admindashboard/CreatePlaylist';
 import ProtectedAdmin from './components/ProtectedAdmin';
 import PageNotFound from './pages/PageNotFound';
+import { Toaster } from 'react-hot-toast';
 axios.defaults.baseURL = "http://localhost:8000"
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
 
     <div className='App'>
       <BrowserRouter>
+        <Toaster />
         <Layout>
           <Routes>
             <Route path='/' element={<Home />} />

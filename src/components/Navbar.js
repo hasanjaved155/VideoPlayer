@@ -1,176 +1,232 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom'
-import { getFilterData } from '../store/dashboardSlice';
-import axios from 'axios';
-import Dropdown from '../dropdown/Dropdown';
-
-
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { getFilterData } from "../store/dashboardSlice";
+import axios from "axios";
+import Dropdown from "../dropdown/Dropdown";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [searchQuery, setSearchQuery] = useState('');
-    const [allData, setAllData] = useState([]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [allData, setAllData] = useState([]);
+  const [isActive, setIsActive] = useState("");
 
+  //const allData = useSelector((store) => store.dashboardSlice.allData);
+  //const admin = useSelector(store => store.userSlice.user.role);
+  const user = JSON.parse(localStorage.getItem("user"));
+  //console.log(user);
 
-    //const allData = useSelector((store) => store.dashboardSlice.allData);
-    //const admin = useSelector(store => store.userSlice.user.role);
-    const user = JSON.parse(localStorage.getItem('user'));
-    //console.log(user);
+  const [searchInputVisible, setSearchInputVisible] = useState(false);
 
-    const [searchInputVisible, setSearchInputVisible] = useState(false);
+  const toggleSearchInputVisibility = () => {
+    setSearchInputVisible(!searchInputVisible);
+  };
 
-    const toggleSearchInputVisibility = () => {
-        setSearchInputVisible(!searchInputVisible);
-    };
+  //console.log(allData);
 
-
-    //console.log(allData);
-
-    const fetchData = async () => {
-        try {
-            const res = await axios.get('/dashboard/get-dashboard');
-            setAllData(res.data.dashboards);
-
-        } catch (err) {
-            console.error(`Failed to fetch dashboards: ${err}`);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-
-    const handlelogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        navigate('/login');
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("/dashboard/get-dashboard");
+      setAllData(res.data.dashboards);
+    } catch (err) {
+      console.error(`Failed to fetch dashboards: ${err}`);
     }
+  };
 
-    const handleSearch = (event) => {
-        setSearchQuery(() => {
-            const newSearchQuery = event.target.value;
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-            const filteredData = allData.filter((data) => {
-                return data.name.toLowerCase().includes(newSearchQuery.toLowerCase());
-            });
+  const handlelogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    toast.success("Logout Successfully");
+    navigate("/login");
+  };
 
-            dispatch(getFilterData(filteredData));
+  const handleSearch = (event) => {
+    setSearchQuery(() => {
+      const newSearchQuery = event.target.value;
 
-            return newSearchQuery;
-        });
-    };
+      const filteredData = allData.filter((data) => {
+        return data.name.toLowerCase().includes(newSearchQuery.toLowerCase());
+      });
 
+      dispatch(getFilterData(filteredData));
 
-    return (
-        <Fragment>
-            <div className='fixed w-full top-0 left-0 border-b-2 z-[999] bg-white'>
-                <nav className="bg-white border-gray-200 dark:bg-gray-900">
-                    <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-                        <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                            <img src="https://www.pcsglobal.in/assets/images/logo.jpg" className="" alt="" />
-                        </Link>
-                        <div className="max-w-screen-xl px-4 py-3 mx-auto">
-                            <div className="flex items-center">
+      return newSearchQuery;
+    });
+  };
 
-                                <ul className="flex flex-row font-medium mt-0 space-x-6 rtl:space-x-reverse text-sm">
-                                    <li>
-                                        <Link to="/" className="text-gray-900 dark:text-white hover:underline hover:text-blue-500 duration-200 text-xl" aria-current="page">Home</Link>
-                                    </li>
-                                    <li>
-                                        <Dropdown />
-                                    </li>
-                                    <li>
-                                        <Link to="team" className="text-gray-900 dark:text-white hover:underline hover:text-blue-500 duration-200 text-xl">Team</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/dashboard" className="text-gray-900 dark:text-white hover:underline hover:text-blue-500 duration-200 text-xl">Dashboard</Link>
-                                    </li>
-                                    <li>
-                                        <button
-                                            type="button"
-                                            className="bg-transparent border-0 p-0 focus:outline-none"
-                                            onClick={toggleSearchInputVisibility}
-                                        >
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={1.5}
-                                                stroke="currentColor"
-                                                className="w-6 h-8 hover:text-blue-500"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
+  const handleAdmin = () => {
+    navigate("/admin");
+    window.location.reload();
+  };
+
+  return (
+    <Fragment>
+      <div className="fixed w-full top-0 left-0 border-b-2 z-[999] bg-white">
+        <nav className="bg-white border-gray-200 dark:bg-gray-900">
+          <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
+            <Link
+              to="/"
+              className="flex items-center space-x-3 rtl:space-x-reverse">
+              <img
+                src="https://www.pcsglobal.in/assets/images/logo.jpg"
+                className=""
+                alt=""
+              />
+            </Link>
+            <div className="max-w-screen-xl px-4 py-3 mx-auto">
+              <div className="flex items-center">
+                <ul className="flex flex-row font-medium mt-0 space-x-6 rtl:space-x-reverse text-sm">
+                  <li
+                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "home" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => setIsActive("home")}>
+                    <NavLink to="/">Home</NavLink>
+                  </li>
+                  <li
+                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "dropdown" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => setIsActive("dropdown")}>
+                    <Dropdown />
+                  </li>
+                  <li
+                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "team" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => setIsActive("team")}>
+                    <Link to="/team">Team</Link>
+                  </li>
+
+                  <li
+                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "dashboard" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => setIsActive("dashboard")}>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      className="bg-transparent border-0 p-0 focus:outline-none"
+                      onClick={toggleSearchInputVisibility}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className={`w-6 h-8 bg-white hover:text-blue-400 text-gray-900 dark:text-white duration-200 text-xl ${
+                          isActive === "search" ? "text-slate-500" : ""
+                        }`}
+                        onClick={() => setIsActive("search")}>
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div>
+              {!localStorage.getItem("token") ? (
+                <div
+                  div
+                  className="flex items-center space-x-6 rtl:space-x-reverse">
+                  {/* <Link to="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</Link> */}
+                  <Link
+                    to="/register"
+                    className="text-blue-600 dark:text-blue-500 text-xl hover:underline">
+                    Register
+                  </Link>
+                  <Link
+                    to="/login"
+                    className="text-blue-600 dark:text-blue-500 text-xl hover:underline">
+                    Login
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-6 rtl:space-x-reverse">
+                  <div className="dropdown dropdown-end">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost btn-circle avatar">
+                      <div className="avatar placeholder">
+                        <div className="bg-neutral text-neutral-content rounded-full w-10">
+                          <span className="text-xl">
+                            {user.name.slice(0, 1)}
+                          </span>
                         </div>
-                        <div>
-                            {!localStorage.getItem('token') ? (
-                                <div div className="flex items-center space-x-6 rtl:space-x-reverse">
-                                    {/* <Link to="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</Link> */}
-                                    <Link to="/register" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Register</Link>
-                                    <Link to="/login" className="text-blue-600 dark:text-blue-500 text-xl hover:underline">Login</Link>
-                                </div>
-                            ) : (
-                                <div className="flex items-center space-x-6 rtl:space-x-reverse">
-                                    <div className="dropdown dropdown-end">
-                                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                            <div className="avatar placeholder">
-                                                <div className="bg-neutral text-neutral-content rounded-full w-10">
-                                                    <span className="text-xl">{user.name.slice(0, 1)}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div><h1>{user?.name}</h1></div>
-                                        <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                                            <li>
-                                                <a className="justify-between">
-                                                    Profile
-                                                    <span className="badge">{user.role}</span>
-                                                </a>
-                                            </li>
-                                            <li>{user.role === "admin" && <Link to="/admin" className="text-gray-600 dark:text-gray-500 hover:text-xl duration-300">Admin Dashboard</Link>}</li>
-                                            <li> <div className="text-blue-600 dark:text-blue-500  hover:text-xl cursor-pointer duration-300" onClick={handlelogout}>Logout</div></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            )
-                            }
-                        </div>
-
+                      </div>
                     </div>
-                    <div className='flex items-center justify-center gap-2 mb-4 z-10'>
-
-                        <div>
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    className={`${!searchInputVisible ? 'hidden' : ''} block px-4 py-2 mt-2 text-xl font-medium text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500`}
-                                    placeholder="Type something..."
-                                    value={searchQuery} onChange={handleSearch}
-                                    style={{ width: "900px" }}
-                                />
-                                {/* {searchInputVisible && <button onClick={(e) => setSearchQuery("")}>
+                    <div>
+                      <h1>{user?.name}</h1>
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                      <li>
+                        <a href="/#" className="justify-between">
+                          Profile
+                          <span className="badge">{user.role}</span>
+                        </a>
+                      </li>
+                      <li>
+                        {user.role === "admin" && (
+                          <div
+                            className="text-gray-600 dark:text-gray-500 hover:text-xl duration-300"
+                            onClick={handleAdmin}>
+                            Admin Dashboard
+                          </div>
+                        )}
+                      </li>
+                      <li>
+                        {" "}
+                        <div
+                          className="text-blue-600 dark:text-blue-500  hover:text-xl cursor-pointer duration-300"
+                          onClick={handlelogout}>
+                          Logout
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-center gap-2 mb-4 z-10">
+            <div>
+              <div className="relative">
+                <input
+                  type="text"
+                  className={`${
+                    !searchInputVisible ? "hidden" : ""
+                  } block px-4 py-2 mt-2 text-xl font-medium text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500`}
+                  placeholder="Type something..."
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  style={{ width: "900px" }}
+                />
+                {/* {searchInputVisible && <button onClick={(e) => setSearchQuery("")}>
                                     x
                                 </button>} */}
-                            </div>
-
-                        </div>
-                    </div>
-                </nav>
+              </div>
             </div>
-        </Fragment>
-    )
-}
+          </div>
+        </nav>
+      </div>
+    </Fragment>
+  );
+};
 
-export default Navbar
+export default Navbar;

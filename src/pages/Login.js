@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getUserConfiguration } from '../store/userSlice';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
 
@@ -25,15 +26,15 @@ const Register = () => {
             dispatch(getUserConfiguration(res.data.user));
             console.log(res);
             if (res && res.data.success) {
-                alert(res.data.message);
+                toast.success(res.data.message);
                 localStorage.setItem('token', JSON.stringify(res.data.token));
                 localStorage.setItem('user', JSON.stringify(res.data.user));
                 navigate("/dashboard");
             } else if (!res.data.success) {
-                alert(res.data.message);
+                toast.error(res.data.message);
             }
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
         }
     }
     return (
