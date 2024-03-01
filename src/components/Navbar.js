@@ -65,6 +65,11 @@ const Navbar = () => {
     window.location.reload();
   };
 
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    dispatch(getFilterData(allData));
+  };
+
   return (
     <Fragment>
       <div className="fixed w-full top-0 left-0 border-b-2 z-[999] bg-white">
@@ -79,26 +84,19 @@ const Navbar = () => {
                 alt=""
               />
             </Link>
-            <div className="max-w-screen-xl px-4 py-3 mx-auto">
+            <div className="max-w-screen-xl px-4 py-3 mx-auto ml-10">
               <div className="flex items-center">
                 <ul className="flex flex-row font-medium mt-0 space-x-6 rtl:space-x-reverse text-sm">
                   <li
                     className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
-                      isActive === "home" ? "bg-slate-100" : ""
-                    }`}
-                    onClick={() => setIsActive("home")}>
-                    <NavLink to="/">Home</NavLink>
-                  </li>
-                  <li
-                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
-                      isActive === "dropdown" ? "bg-slate-100" : ""
+                      isActive === "dropdown" ? "bg-slate-400" : ""
                     }`}
                     onClick={() => setIsActive("dropdown")}>
                     <Dropdown />
                   </li>
                   <li
                     className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
-                      isActive === "team" ? "bg-slate-100" : ""
+                      isActive === "team" ? "bg-slate-400" : ""
                     }`}
                     onClick={() => setIsActive("team")}>
                     <Link to="/team">Team</Link>
@@ -106,7 +104,7 @@ const Navbar = () => {
 
                   <li
                     className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
-                      isActive === "dashboard" ? "bg-slate-100" : ""
+                      isActive === "dashboard" ? "bg-slate-400" : ""
                     }`}
                     onClick={() => setIsActive("dashboard")}>
                     <Link to="/dashboard">Dashboard</Link>
@@ -204,7 +202,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          <div className="flex items-center justify-center gap-2 mb-4 z-10">
+          <div className="flex items-center justify-center gap-2 mb-1 z-10">
             <div>
               <div className="relative">
                 <input
@@ -217,9 +215,27 @@ const Navbar = () => {
                   onChange={handleSearch}
                   style={{ width: "900px" }}
                 />
-                {/* {searchInputVisible && <button onClick={(e) => setSearchQuery("")}>
-                                    x
-                                </button>} */}
+                {searchInputVisible && (
+                  <button onClick={handleClearSearch}>
+                    <svg
+                      className="absolute right-0 top-4 transform -translate-y-1 mr-2 hover:text-red-400"
+                      width={24}
+                      height={24}
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="currentColor"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round">
+                      {"{"}" "{"}"}
+                      <path stroke="none" d="M0 0h24v24H0z" />
+                      {"{"}" "{"}"}
+                      <line x1={18} y1={6} x2={6} y2={18} />
+                      {"{"}" "{"}"}
+                      <line x1={6} y1={6} x2={18} y2={18} />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
           </div>
