@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getFilterData } from "../store/dashboardSlice";
 import axios from "axios";
 import Dropdown from "../dropdown/Dropdown";
@@ -12,26 +12,27 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [allData, setAllData] = useState([]);
   const [isActive, setIsActive] = useState("");
-
-  //const allData = useSelector((store) => store.dashboardSlice.allData);
-  //const admin = useSelector(store => store.userSlice.user.role);
-  const user = JSON.parse(localStorage.getItem("user"));
-  //console.log(user);
-
   const [searchInputVisible, setSearchInputVisible] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const toggleSearchInputVisibility = () => {
     setSearchInputVisible(!searchInputVisible);
   };
 
-  //console.log(allData);
+  const handleCategoryClick = (category) => {
+    setSearchQuery("");
+    dispatch(getFilterData(allData));
+    setIsActive(category);
+    setSearchInputVisible(false);
+  };
 
   const fetchData = async () => {
     try {
       const res = await axios.get("/dashboard/get-dashboard");
       setAllData(res.data.dashboards);
     } catch (err) {
-      console.error(`Failed to fetch dashboards: ${err}`);
+      toast.error(`Failed to fetch dashboards: ${err}`);
     }
   };
 
@@ -88,25 +89,25 @@ const Navbar = () => {
               <div className="flex items-center">
                 <ul className="flex flex-row font-medium mt-0 space-x-6 rtl:space-x-reverse text-sm">
                   <li
-                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
-                      isActive === "dropdown" ? "bg-slate-400" : ""
+                    className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "dropdown" ? "bg-slate-100" : ""
                     }`}
-                    onClick={() => setIsActive("dropdown")}>
+                    onClick={() => handleCategoryClick("dropdown")}>
                     <Dropdown />
                   </li>
                   <li
-                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
-                      isActive === "team" ? "bg-slate-400" : ""
+                    className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "team" ? "bg-slate-100" : ""
                     }`}
-                    onClick={() => setIsActive("team")}>
+                    onClick={() => handleCategoryClick("team")}>
                     <Link to="/team">Team</Link>
                   </li>
 
                   <li
-                    className={`bg-white hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
-                      isActive === "dashboard" ? "bg-slate-400" : ""
+                    className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "dashboard" ? "bg-slate-100" : ""
                     }`}
-                    onClick={() => setIsActive("dashboard")}>
+                    onClick={() => handleCategoryClick("dashboard")}>
                     <Link to="/dashboard">Dashboard</Link>
                   </li>
                   <li>
@@ -120,10 +121,10 @@ const Navbar = () => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className={`w-6 h-8 bg-white hover:text-blue-400 text-gray-900 dark:text-white duration-200 text-xl ${
+                        className={`w-6 h-8  hover:text-blue-400 text-gray-900 dark:text-white duration-200 text-xl ${
                           isActive === "search" ? "text-slate-500" : ""
                         }`}
-                        onClick={() => setIsActive("search")}>
+                        onClick={() => handleCategoryClick("search")}>
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -246,3 +247,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+//const allData = useSelector((store) => store.dashboardSlice.allData);
+//const admin = useSelector(store => store.userSlice.user.role);

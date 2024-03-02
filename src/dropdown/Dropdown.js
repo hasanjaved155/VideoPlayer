@@ -5,13 +5,13 @@ const Dropdown = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
   const [selectedSubDropdown, setSelectedSubDropdown] = useState(null);
-  const [selectedSubSubDropdown, setSelectedSubSubDropdown] = useState(null);
+  // const [selectedSubSubDropdown, setSelectedSubSubDropdown] = useState(null);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
     setSelectedDropdown(null);
     setSelectedSubDropdown(null); // Reset selected sub-dropdown when main dropdown is toggled
-    setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
+    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
   };
 
   const toggleSubDropdown = (dropdown) => {
@@ -21,7 +21,7 @@ const Dropdown = () => {
       setSelectedDropdown(dropdown); // Show sub-dropdown for the selected item
     }
     setSelectedSubDropdown(null); // Reset selected sub-dropdown when main dropdown is toggled
-    setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
+    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
   };
 
   const toggleSubSubDropdown = (subDropdown) => {
@@ -30,7 +30,7 @@ const Dropdown = () => {
     } else {
       setSelectedSubDropdown(subDropdown); // Show sub-sub-dropdown for the selected item
     }
-    setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
+    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
   };
 
   const handleSubSubSubDropdown = (subSubDropdown) => {};
