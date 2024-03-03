@@ -1,38 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 //import { Link } from "react-router-dom";
 
-const Dropdown = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedDropdown, setSelectedDropdown] = useState(null);
-  const [selectedSubDropdown, setSelectedSubDropdown] = useState(null);
-  // const [selectedSubSubDropdown, setSelectedSubSubDropdown] = useState(null);
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-    setSelectedDropdown(null);
-    setSelectedSubDropdown(null); // Reset selected sub-dropdown when main dropdown is toggled
-    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
-  };
-
-  const toggleSubDropdown = (dropdown) => {
-    if (selectedDropdown === dropdown) {
-      setSelectedDropdown(null); // Close sub-dropdown if already open
-    } else {
-      setSelectedDropdown(dropdown); // Show sub-dropdown for the selected item
-    }
-    setSelectedSubDropdown(null); // Reset selected sub-dropdown when main dropdown is toggled
-    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
-  };
-
-  const toggleSubSubDropdown = (subDropdown) => {
-    if (selectedSubDropdown === subDropdown) {
-      setSelectedSubDropdown(null); // Close sub-sub-dropdown if already open
-    } else {
-      setSelectedSubDropdown(subDropdown); // Show sub-sub-dropdown for the selected item
-    }
-    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
-  };
-
+const Dropdown = ({
+  showDropdown,
+  selectedDropdown,
+  selectedSubDropdown,
+  toggleDropdown,
+  toggleSubDropdown,
+  toggleSubSubDropdown,
+}) => {
   const handleSubSubSubDropdown = (subSubDropdown) => {};
   return (
     <div className="flex">

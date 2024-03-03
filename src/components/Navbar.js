@@ -13,6 +13,9 @@ const Navbar = () => {
   const [allData, setAllData] = useState([]);
   const [isActive, setIsActive] = useState("");
   const [searchInputVisible, setSearchInputVisible] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedDropdown, setSelectedDropdown] = useState(null);
+  const [selectedSubDropdown, setSelectedSubDropdown] = useState(null);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -21,6 +24,9 @@ const Navbar = () => {
   };
 
   const handleCategoryClick = (category) => {
+    if (category !== "dropdown") {
+      setShowDropdown(false);
+    }
     setSearchQuery("");
     dispatch(getFilterData(allData));
     setIsActive(category);
@@ -71,6 +77,34 @@ const Navbar = () => {
     dispatch(getFilterData(allData));
   };
 
+  // const [selectedSubSubDropdown, setSelectedSubSubDropdown] = useState(null);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+    setSelectedDropdown(null);
+    setSelectedSubDropdown(null); // Reset selected sub-dropdown when main dropdown is toggled
+    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
+  };
+
+  const toggleSubDropdown = (dropdown) => {
+    if (selectedDropdown === dropdown) {
+      setSelectedDropdown(null); // Close sub-dropdown if already open
+    } else {
+      setSelectedDropdown(dropdown); // Show sub-dropdown for the selected item
+    }
+    setSelectedSubDropdown(null); // Reset selected sub-dropdown when main dropdown is toggled
+    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
+  };
+
+  const toggleSubSubDropdown = (subDropdown) => {
+    if (selectedSubDropdown === subDropdown) {
+      setSelectedSubDropdown(null); // Close sub-sub-dropdown if already open
+    } else {
+      setSelectedSubDropdown(subDropdown); // Show sub-sub-dropdown for the selected item
+    }
+    // setSelectedSubSubDropdown(null); // Reset selected sub-sub-dropdown when main dropdown is toggled
+  };
+
   return (
     <Fragment>
       <div className="fixed w-full top-0 left-0 border-b-2 z-[999] bg-white">
@@ -93,7 +127,16 @@ const Navbar = () => {
                       isActive === "dropdown" ? "bg-slate-100" : ""
                     }`}
                     onClick={() => handleCategoryClick("dropdown")}>
-                    <Dropdown />
+                    <div style={{ display: "block" }}>
+                      <Dropdown
+                        showDropdown={showDropdown}
+                        selectedDropdown={selectedDropdown}
+                        selectedSubDropdown={selectedSubDropdown}
+                        toggleDropdown={toggleDropdown}
+                        toggleSubDropdown={toggleSubDropdown}
+                        toggleSubSubDropdown={toggleSubSubDropdown}
+                      />
+                    </div>
                   </li>
                   <li
                     className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
