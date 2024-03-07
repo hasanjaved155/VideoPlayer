@@ -24,7 +24,7 @@ import AdminCategory from "./admindashboard/AdminCategory";
 import Help from "./help/Help";
 import DropDashboard from "./dropdown/DropDashboard";
 axios.defaults.baseURL = "http://localhost:8000";
-// axios.defaults.baseURL = "107.22.154.213";
+// axios.defaults.baseURL = "http://107.22.154.213";
 
 const App = () => {
   const [playlist, setPlaylist] = useState([]);
