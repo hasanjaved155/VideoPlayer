@@ -11,8 +11,7 @@ import ProtectedDashboard from "./components/ProtectedDashboard";
 
 import Dashboard from "./admindashboard/Dashboard";
 import CreateDashboard from "./admindashboard/CreateDashboard";
-import { useDispatch } from "react-redux";
-import { getFilterData } from "./store/dashboardSlice";
+
 import { useEffect } from "react";
 import CourseDetails from "./components/CourseDetails";
 import AdminDashboard from "./admindashboard/AdminDashboard";
@@ -21,22 +20,14 @@ import CreatePlaylist from "./admindashboard/CreatePlaylist";
 import ProtectedAdmin from "./components/ProtectedAdmin";
 import PageNotFound from "./pages/PageNotFound";
 import { Toaster } from "react-hot-toast";
+import AdminCategory from "./admindashboard/AdminCategory";
+import Help from "./help/Help";
+import DropDashboard from "./dropdown/DropDashboard";
+// axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.baseURL = "107.22.154.213";
 
 const App = () => {
   const [playlist, setPlaylist] = useState([]);
-
-  const dispatch = useDispatch();
-
-  const fetchData = async () => {
-    try {
-      const res = await axios.get("/dashboard/get-dashboard");
-      //dispatch(getAllData(res.data.dashboards));
-      dispatch(getFilterData(res.data.dashboards));
-    } catch (err) {
-      console.error(`Failed to fetch dashboards: ${err}`);
-    }
-  };
 
   const fetchPlaylist = async () => {
     try {
@@ -48,8 +39,6 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchData();
-
     fetchPlaylist();
   }, []);
 
@@ -61,6 +50,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/drop-dashboard" element={<DropDashboard />} />
 
             <Route element={<ProtectedAdmin />}>
               <Route path="/admin" element={<AdminDashboard />} />
@@ -73,6 +63,7 @@ const App = () => {
                 path="/admin/createPlaylist"
                 element={<CreatePlaylist />}
               />
+              <Route path="/admin/createCategory" element={<AdminCategory />} />
             </Route>
 
             <Route element={<ProtectedDashboard />}>
@@ -87,6 +78,7 @@ const App = () => {
             </Route>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/help" element={<Help />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Layout>

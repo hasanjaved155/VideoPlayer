@@ -14,6 +14,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState("");
   const [searchInputVisible, setSearchInputVisible] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  //const [showDropDashboard, setShowDropDashboard] = useState(false);
   const [selectedDropdown, setSelectedDropdown] = useState(null);
   const [selectedSubDropdown, setSelectedSubDropdown] = useState(null);
 
@@ -36,6 +37,7 @@ const Navbar = () => {
   const fetchData = async () => {
     try {
       const res = await axios.get("/dashboard/get-dashboard");
+      dispatch(getFilterData(res.data.dashboards));
       setAllData(res.data.dashboards);
     } catch (err) {
       toast.error(`Failed to fetch dashboards: ${err}`);
@@ -78,6 +80,11 @@ const Navbar = () => {
   };
 
   // const [selectedSubSubDropdown, setSelectedSubSubDropdown] = useState(null);
+
+  const showDropDashboard = () => {
+    navigate("/drop-dashboard");
+    setShowDropdown(false);
+  };
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -129,6 +136,8 @@ const Navbar = () => {
                     onClick={() => handleCategoryClick("dropdown")}>
                     <div style={{ display: "block" }}>
                       <Dropdown
+                        allData={allData}
+                        showDropDashboard={showDropDashboard}
                         showDropdown={showDropdown}
                         selectedDropdown={selectedDropdown}
                         selectedSubDropdown={selectedSubDropdown}
@@ -143,7 +152,11 @@ const Navbar = () => {
                       isActive === "team" ? "bg-slate-100" : ""
                     }`}
                     onClick={() => handleCategoryClick("team")}>
-                    <Link to="/team">Team</Link>
+                    <div
+                      className="tooltip"
+                      data-tip="Welcome to Career Journey Stories">
+                      <Link to="/career">Career</Link>
+                    </div>
                   </li>
 
                   <li
@@ -178,6 +191,15 @@ const Navbar = () => {
                   </li>
                 </ul>
               </div>
+            </div>
+            <div className="tooltip mt-2" data-tip="Need Help!!">
+              <button
+                className={` btn mr-7 text-black ${
+                  isActive === "help" ? "text-slate-600" : ""
+                }`}
+                onClick={() => handleCategoryClick("help")}>
+                <Link to="/help">Help-Desk</Link>
+              </button>
             </div>
             <div>
               {!localStorage.getItem("token") ? (

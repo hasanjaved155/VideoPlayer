@@ -18,7 +18,13 @@ const ShowAllUsers = () => {
   }, []);
 
   return (
-    <div className=" ml-24 -translate-y-6">
+    <div className=" ml-24 -translate-y-6" style={{ marginLeft: "500px" }}>
+      <div className="indicator" style={{ marginRight: "800px" }}>
+        <span className="indicator-item badge badge-secondary">
+          {users.length}
+        </span>
+        <button className="btn">Login Users</button>
+      </div>
       <h1 className="text-2xl font-bold text-gray-800 mb-4">All Users</h1>
       <div>
         <div
