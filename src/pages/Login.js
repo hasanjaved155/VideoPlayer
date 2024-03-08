@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { getUserConfiguration } from "../store/userSlice";
 import { toast } from "react-hot-toast";
 
-const Register = () => {
+const Login = () => {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
@@ -110,4 +110,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

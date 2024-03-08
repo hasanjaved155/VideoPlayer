@@ -23,6 +23,8 @@ import { Toaster } from "react-hot-toast";
 import AdminCategory from "./admindashboard/AdminCategory";
 import Help from "./help/Help";
 import DropDashboard from "./dropdown/DropDashboard";
+import Forgetpassword from "./pages/Forget-password";
+import ResetPassword from "./pages/ResetPassword";
 // axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.baseURL = "http://107.22.154.213";
 
@@ -78,6 +80,11 @@ const App = () => {
             </Route>
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<Forgetpassword />} />
+            <Route
+              path="/reset-password/:id/:token"
+              element={<ResetPassword />}
+            />
             <Route path="/help" element={<Help />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
