@@ -6,51 +6,16 @@ const AdminCategory = () => {
   const [categoryName, setCategoryName] = useState("");
   const [subCategoryName, setSubCategoryName] = useState("");
   const [subSubCategoryName, setSubSubCategoryName] = useState("");
-  const [categoryId, setCategoryId] = useState(""); // State to hold categoryId
-  const [subCategoryId, setSubCategoryId] = useState(""); // State to hold subCategoryId
-  const [link, setLink] = useState(""); // State to hold subCategoryId
 
-  const handleCategorySubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post("/category/create-category", {
+      // Send a POST request to the backend API to add subsubcategory
+      const res = await axios.post("/create/categories", {
         categoryName,
-      });
-      if (res && res.data.success) {
-        toast.success(res.data.message);
-      } else if (!res.data.success) {
-        toast.error(res.data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const handleSubCategorySubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("/category/create-subcategory", {
         subCategoryName,
-        categoryId,
-      });
-      if (res && res.data.success) {
-        toast.success(res.data.message);
-      } else if (!res.data.success) {
-        toast.error(res.data.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  const handleSubSubCategorySubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post("/category/create-subsubcategory", {
-        link,
         subSubCategoryName,
-        categoryId,
-        subCategoryId,
       });
       if (res && res.data.success) {
         toast.success(res.data.message);
@@ -63,118 +28,52 @@ const AdminCategory = () => {
   };
 
   return (
-    <div style={{ marginLeft: "500px" }}>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="card border border-gray-300 p-4">
-          <div class="card-body">
-            <h2 class="text-lg font-semibold mb-4">Create Category</h2>
-            <form onSubmit={handleCategorySubmit}>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Category Name:</span>
-                  <input
-                    type="text"
-                    class="input input-bordered"
-                    value={categoryName}
-                    onChange={(e) => setCategoryName(e.target.value)}
-                  />
-                </label>
-              </div>
-              <button type="submit" class="btn btn-primary mt-4">
-                Create Category
-              </button>
-            </form>
-          </div>
-        </div>
+    <div className="w-[18rem] ml-10 md:ml-40 md:w-[30rem] mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
+      <h2 className="text-2xl font-semibold mb-4">Create Category</h2>
 
-        <div class="card border border-gray-300 p-4">
-          <div class="card-body">
-            <h2 class="text-lg font-semibold mb-4">Create Subcategory</h2>
-            <form onSubmit={(e) => handleSubCategorySubmit(e)}>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Subcategory Name:</span>
-                  <input
-                    type="text"
-                    class="input input-bordered"
-                    value={subCategoryName}
-                    onChange={(e) => setSubCategoryName(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Category-ID:</span>
-                  <input
-                    type="text"
-                    class="input input-bordered"
-                    value={categoryId}
-                    onChange={(e) => setCategoryId(e.target.value)}
-                  />
-                </label>
-              </div>
-              <button type="submit" class="btn btn-primary mt-4">
-                Create Subcategory
-              </button>
-            </form>
-          </div>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2">
+            Category:
+          </label>
+          <input
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+            type="text"
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
+            required
+          />
         </div>
-
-        <div class="card border border-gray-300 p-4">
-          <div class="card-body">
-            <h2 class="text-lg font-semibold mb-4">Create Subsubcategory</h2>
-            <form onSubmit={(e) => handleSubSubCategorySubmit(e)}>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Path:</span>
-                  <input
-                    type="text"
-                    class="input input-bordered"
-                    value={link}
-                    onChange={(e) => setLink(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Subsubcategory Name:</span>
-                  <input
-                    type="text"
-                    class="input input-bordered"
-                    value={subSubCategoryName}
-                    onChange={(e) => setSubSubCategoryName(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Category-ID:</span>
-                  <input
-                    type="text"
-                    class="input input-bordered"
-                    value={categoryId}
-                    onChange={(e) => setCategoryId(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div class="form-control">
-                <label class="label">
-                  <span class="label-text">Sub-Category-ID:</span>
-                  <input
-                    type="text"
-                    class="input input-bordered"
-                    value={subCategoryId}
-                    onChange={(e) => setSubCategoryId(e.target.value)}
-                  />
-                </label>
-              </div>
-              <button type="submit" class="btn btn-primary mt-4">
-                Create Subsubcategory
-              </button>
-            </form>
-          </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2">
+            Subcategory:
+          </label>
+          <input
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+            type="text"
+            value={subCategoryName}
+            onChange={(e) => setSubCategoryName(e.target.value)}
+            required
+          />
         </div>
-      </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-bold mb-2">
+            Subsubcategory:
+          </label>
+          <input
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+            type="text"
+            value={subSubCategoryName}
+            onChange={(e) => setSubSubCategoryName(e.target.value)}
+            required
+          />
+        </div>
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500"
+          type="submit">
+          Create Category
+        </button>
+      </form>
     </div>
   );
 };

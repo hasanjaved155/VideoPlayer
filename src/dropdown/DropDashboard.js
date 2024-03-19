@@ -2,14 +2,15 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const DropDashboard = () => {
-  const [dashboards, setDashboards] = useState([]);
-  const allData = useSelector((store) => store.dashboardSlice.allData);
+const DropDashboard = ({ displaydown }) => {
+  //const [dashboards, setDashboards] = useState([]);
+  // const allData = useSelector((store) => store.dashboardSlice.allData);
   const [hoveredItem, setHoveredItem] = useState(null);
 
-  useEffect(() => {
-    setDashboards(allData);
-  }, [allData]);
+  console.log(displaydown);
+  // useEffect(() => {
+  //   setDashboards(dropdownn);
+  // }, [dropdownn]);
 
   const handleMouseEnter = (item) => {
     setHoveredItem(item);
@@ -33,8 +34,8 @@ const DropDashboard = () => {
     <Fragment>
       <div className="flex flex-col items-center justify-center">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
-          {dashboards.length > 0 &&
-            dashboards?.map((item, index) => {
+          {displaydown.length > 0 &&
+            displaydown?.map((item) => {
               return (
                 <div
                   key={item.id}
@@ -42,18 +43,17 @@ const DropDashboard = () => {
                   onMouseEnter={() => handleMouseEnter(item)}
                   onMouseLeave={handleMouseLeave}>
                   <Link to={item?.link}>
-                    <div className="h-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl relative">
+                    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
                       <img
                         className="rounded-t-lg"
                         src={item?.image}
                         alt=""
-                        width={"280px"}
-                        height={"140px"}
-                        style={{ objectFit: "cover" }}
+                        style={{ width: "300px", height: "140px" }}
                       />
                       <div className="p-5">
-                        <h5 className="mb-12 ml-16 bottom-0 absolute text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          {item?.name}
+                        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                          {item?.name.slice(0, 28)} <br />
+                          {item?.name.slice(28)}
                         </h5>
                       </div>
                     </div>

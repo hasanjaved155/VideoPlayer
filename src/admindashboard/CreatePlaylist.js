@@ -34,7 +34,7 @@ const CreatePlaylist = () => {
     }
   };
   return (
-    <div style={{ marginLeft: "500px" }}>
+    <div style={{ marginLeft: "80px" }}>
       <section
         className="ml-40 dark:bg-gray-900 "
         style={{

@@ -18,7 +18,9 @@ const ShowAllUsers = () => {
   }, []);
 
   return (
-    <div className=" ml-24 -translate-y-6" style={{ marginLeft: "500px" }}>
+    <div
+      className=" ml-24 -translate-y-6"
+      style={{ marginLeft: "80px", marginTop: "1.5rem" }}>
       <div className="indicator" style={{ marginRight: "800px" }}>
         <span className="indicator-item badge badge-secondary">
           {users.length}

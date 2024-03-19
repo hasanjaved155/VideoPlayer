@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const CreateDashboard = () => {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [image, setImage] = useState({});
+  const [role, setRole] = useState("");
 
   const navigate = useNavigate();
 
@@ -38,6 +39,7 @@ const CreateDashboard = () => {
         name,
         link,
         image: image?.url,
+        role: [{ rolename: role }],
       });
       console.log(res);
       if (res && res.data.success) {
@@ -51,7 +53,7 @@ const CreateDashboard = () => {
     }
   };
   return (
-    <div style={{ marginLeft: "500px" }}>
+    <div style={{ marginLeft: "80px" }}>
       <section
         className="ml-40"
         style={{
@@ -97,9 +99,22 @@ const CreateDashboard = () => {
                   />
                 </div>
 
-                {/* <div>
-                                    {upload && "uploading...!!"}
-                                </div> */}
+                {/* <div>{upload && "uploading...!!"}</div> */}
+
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Role
+                  </label>
+                  <select
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    required>
+                    <option value="">Select Role</option>
+                    <option value="Employee">Employee</option>
+                    <option value="Buyer">Buyer</option>
+                  </select>
+                </div>
 
                 <div>
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
