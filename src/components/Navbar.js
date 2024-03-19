@@ -5,6 +5,7 @@ import { getFilterData } from "../store/dashboardSlice";
 import axios from "axios";
 import Dropdown from "../dropdown/Dropdown";
 import toast from "react-hot-toast";
+import { getMyData } from "../store/mycourseSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -37,8 +38,18 @@ const Navbar = () => {
   const fetchData = async () => {
     try {
       const res = await axios.get("/dashboard/get-dashboard");
-      dispatch(getFilterData(res.data.dashboards));
+
       setAllData(res.data.dashboards);
+
+      const filteredDashboards = res.data.dashboards?.filter(
+        (item) => item?.role[0]?.rolename !== "Employee"
+      );
+      dispatch(getFilterData(filteredDashboards));
+
+      const filteredMyCourse = res.data.dashboards.filter(
+        (item) => item?.role[0]?.rolename === "Employee"
+      );
+      dispatch(getMyData(filteredMyCourse));
     } catch (err) {
       toast.error(`Failed to fetch dashboards: ${err}`);
     }
@@ -46,13 +57,14 @@ const Navbar = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
 
   const handlelogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     toast.success("Logout Successfully");
-    navigate("/login");
+    navigate("/login-pcs");
   };
 
   const handleSearch = (event) => {
@@ -71,6 +83,11 @@ const Navbar = () => {
 
   const handleAdmin = () => {
     navigate("/admin");
+    window.location.reload();
+  };
+
+  const handleUser = () => {
+    navigate("/user");
     window.location.reload();
   };
 
@@ -114,12 +131,12 @@ const Navbar = () => {
 
   return (
     <Fragment>
-      <div className="fixed w-full top-0 left-0 border-b-2 z-[999] bg-white">
+      <div className="fixed font-medium w-full top-0 left-0 border-b-2 z-[999] bg-white">
         <nav className="bg-white border-gray-200 dark:bg-gray-900">
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
             <Link
               to="/"
-              className="flex items-center space-x-3 rtl:space-x-reverse">
+              className="flex w-48 items-center space-x-3 rtl:space-x-reverse">
               <img
                 src="https://www.pcsglobal.in/assets/images/logo.jpg"
                 className=""
@@ -128,9 +145,9 @@ const Navbar = () => {
             </Link>
             <div className="max-w-screen-xl px-4 py-3 mx-auto ml-10">
               <div className="flex items-center">
-                <ul className="flex flex-row font-medium mt-0 space-x-6 rtl:space-x-reverse text-sm">
+                <ul className="flex flex-row font-small mt-0 space-x-6 rtl:space-x-reverse">
                   <li
-                    className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                    className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 ${
                       isActive === "dropdown" ? "bg-slate-100" : ""
                     }`}
                     onClick={() => handleCategoryClick("dropdown")}>
@@ -153,6 +170,7 @@ const Navbar = () => {
                     }`}
                     onClick={() => handleCategoryClick("team")}>
                     <div
+                      style={{ fontSize: "1.10rem" }}
                       className="tooltip"
                       data-tip="Welcome to Career Journey Stories">
                       <Link to="/career">Career</Link>
@@ -163,8 +181,25 @@ const Navbar = () => {
                     className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
                       isActive === "dashboard" ? "bg-slate-100" : ""
                     }`}
-                    onClick={() => handleCategoryClick("dashboard")}>
+                    onClick={() => handleCategoryClick("dashboard")}
+                    style={{ fontSize: "1.10rem" }}>
                     <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li
+                    className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "certificate" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => handleCategoryClick("certificate")}
+                    style={{ fontSize: "1.10rem" }}>
+                    <Link to="/certificate">Certificate</Link>
+                  </li>
+                  <li
+                    className={` hover:bg-slate-100 text-gray-900 dark:text-white duration-200 text-xl ${
+                      isActive === "services" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => handleCategoryClick("services")}
+                    style={{ fontSize: "1.10rem" }}>
+                    <Link to="/services">Services</Link>
                   </li>
                   <li>
                     <button
@@ -192,6 +227,17 @@ const Navbar = () => {
                 </ul>
               </div>
             </div>
+            {user?.employeeId && (
+              <div
+                className={` hover:bg-slate-100 text-gray-900 mr-4 dark:text-white duration-200 ${
+                  isActive === "myCourse" ? "bg-slate-100" : ""
+                }`}
+                onClick={() => handleCategoryClick("myCourse")}
+                style={{ fontSize: "1.05rem" }}>
+                <Link to="/my-course">My Courses</Link>
+              </div>
+            )}
+
             <div className="tooltip mt-2" data-tip="Need Help!!">
               <button
                 className={` btn mr-7 text-black ${
@@ -203,20 +249,21 @@ const Navbar = () => {
             </div>
             <div>
               {!localStorage.getItem("token") ? (
-                <div
-                  div
-                  className="flex items-center space-x-6 rtl:space-x-reverse">
-                  {/* <Link to="tel:5541251234" className="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</Link> */}
-                  <Link
-                    to="/register"
-                    className="text-blue-600 dark:text-blue-500 text-xl hover:underline">
-                    Register
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="text-blue-600 dark:text-blue-500 text-xl hover:underline">
-                    Login
-                  </Link>
+                <div className="flex items-center space-x-6 rtl:space-x-reverse">
+                  <div
+                    className={` hover:bg-slate-100 text-gray-900  ${
+                      isActive === "signin" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => handleCategoryClick("signin")}>
+                    <Link to="/authSignin">SignIn</Link>
+                  </div>
+                  <div
+                    className={` hover:bg-slate-100 text-gray-900  ${
+                      isActive === "signup" ? "bg-slate-100" : ""
+                    }`}
+                    onClick={() => handleCategoryClick("signup")}>
+                    <Link to="/authSignup">SignUp</Link>
+                  </div>
                 </div>
               ) : (
                 <div className="flex items-center space-x-6 rtl:space-x-reverse">
@@ -228,13 +275,16 @@ const Navbar = () => {
                       <div className="avatar placeholder">
                         <div className="bg-neutral text-neutral-content rounded-full w-10">
                           <span className="text-xl">
-                            {user.name.slice(0, 1)}
+                            {(user?.name && user?.name.slice(0, 1)) ||
+                              (user?.firstName && user?.firstName.slice(0, 1))}
                           </span>
                         </div>
                       </div>
                     </div>
                     <div>
-                      <h1>{user?.name}</h1>
+                      <h1>
+                        {user?.name || user?.firstName + " " + user?.lastName}
+                      </h1>
                     </div>
                     <ul
                       tabIndex={0}
@@ -246,11 +296,17 @@ const Navbar = () => {
                         </a>
                       </li>
                       <li>
-                        {user.role === "admin" && (
+                        {user.role === "admin" ? (
                           <div
                             className="text-gray-600 dark:text-gray-500 hover:text-xl duration-300"
                             onClick={handleAdmin}>
                             Admin Dashboard
+                          </div>
+                        ) : (
+                          <div
+                            className="text-gray-600 dark:text-gray-500 hover:text-xl duration-300"
+                            onClick={handleUser}>
+                            User Dashboard
                           </div>
                         )}
                       </li>
@@ -268,18 +324,18 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          <div className="flex items-center justify-center gap-2 mb-1 z-10">
+          <div className="flex items-center justify-center gap-2 -mt-4 z-10">
             <div>
               <div className="relative">
                 <input
                   type="text"
                   className={`${
                     !searchInputVisible ? "hidden" : ""
-                  } block px-4 py-2 mt-2 text-xl font-medium text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500`}
+                  } block px-4 py-2 -mb-4 text-xl font-medium text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:ring-blue-500 dark:focus:ring-blue-500`}
                   placeholder="Type something..."
                   value={searchQuery}
                   onChange={handleSearch}
-                  style={{ width: "900px" }}
+                  style={{ width: "850px" }}
                 />
                 {searchInputVisible && (
                   <button onClick={handleClearSearch}>

@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ProtectedDashboard = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const pageReload = () => {
-        if (!localStorage.getItem('token')) {
-            navigate('/login')
-        }
+  const pageReload = () => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login-pcs");
     }
-    useEffect(() => {
+  };
+  useEffect(() => {
+    pageReload();
+    //eslint-disable-next-line
+  }, []);
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+};
 
-        pageReload();
-    }, [])
-    return (
-        <>
-            <Outlet />
-        </>
-    )
-}
-
-export default ProtectedDashboard
+export default ProtectedDashboard;

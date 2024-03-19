@@ -18,7 +18,7 @@ const Forgetpassword = () => {
       });
       if (res && res.data.success) {
         toast.success(res.data.message);
-        navigate("/login");
+        navigate("/login-pcs");
       } else if (!res.data.success) {
         toast.error(res.data.message);
       }
