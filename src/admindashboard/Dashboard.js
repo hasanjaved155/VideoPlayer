@@ -2,10 +2,13 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+//import EnrollmentForm from "../form/EnrollmentForm";
 
 const Dashboard = ({ searchTerm }) => {
   const [dashboards, setDashboards] = useState([]);
+  const navigate = useNavigate();
+
   //const [user, setUser] = useState("");
   //const { id } = useParams();
 
@@ -47,24 +50,7 @@ const Dashboard = ({ searchTerm }) => {
       item?.role &&
       item?.role[0]?.rolename === "Employee"
     ) {
-      toast.error(
-        "You don't have permission to view this.Please Contact Help Desk."
-      );
-    } else {
-      // <Link to={item?.link}>
-      //   <img
-      //     className="rounded-t-lg"
-      //     src={item?.image}
-      //     alt=""
-      //     style={{ width: "300px", height: "140px" }}
-      //   />
-      //   <div className="p-5">
-      //     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-      //       {item?.name.slice(0, 28)} <br />
-      //       {item?.name.slice(28)}
-      //     </h5>
-      //   </div>
-      // </Link>;
+      navigate("/enroll");
     }
   };
 
@@ -74,15 +60,12 @@ const Dashboard = ({ searchTerm }) => {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
           {dashboards?.length > 0 &&
             dashboards?.map((item) => (
-              <div
-                key={item._id}
-                className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
+              <div key={item._id} className="relative ">
                 {!user?.employeeId &&
-                item?.role &&
-                item?.role[0]?.rolename === "Employee" ? (
-                  <div
-                    onClick={() => handleClick(item)}
-                    style={{ cursor: "not-allowed" }}>
+                  item?.role &&
+                  item?.role[0]?.rolename === "Employee" ? (
+                  <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl"
+                    onClick={() => handleClick(item)}>
                     <img
                       className="rounded-t-lg"
                       src={item?.image}
@@ -98,17 +81,19 @@ const Dashboard = ({ searchTerm }) => {
                   </div>
                 ) : (
                   <Link to={item?.link}>
-                    <img
-                      className="rounded-t-lg"
-                      src={item?.image}
-                      alt=""
-                      style={{ width: "300px", height: "140px" }}
-                    />
-                    <div className="p-5">
-                      <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {item?.name.slice(0, 28)} <br />
-                        {item?.name.slice(28)}
-                      </h5>
+                    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
+                      <img
+                        className="rounded-t-lg"
+                        src={item?.image}
+                        alt=""
+                        style={{ width: "300px", height: "140px" }}
+                      />
+                      <div className="p-5">
+                        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                          {item?.name.slice(0, 28)} <br />
+                          {item?.name.slice(28)}
+                        </h5>
+                      </div>
                     </div>
                   </Link>
                 )}

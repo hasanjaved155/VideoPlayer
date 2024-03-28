@@ -7,7 +7,7 @@ const SignUpComponent = () => {
   return (
     <div>
       <div>
-        <h1 className="text-2xl font-bold -mb-9 md:ml-[36rem]">SIGN UP AS</h1>
+        <h1 className="text-2xl font-bold -mb-7 md:ml-[36rem]">SIGN UP AS</h1>
       </div>
       <div
         className="flex  rounded-lg md:h-[450px] md:w-[1230px] md:ml-[130px] "

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 
-const Card = (props) => {
+const EnrollmentForm = (props) => {
   const [data, setData] = useState([]); // all heading of separate video
   const [list, setList] = useState(""); //main heading of list
   const [video, setVideo] = useState(props.lecId);
@@ -41,6 +41,7 @@ const Card = (props) => {
         <div className="flex flex-col gap-4 h-[30rem] px-10 overflow-scroll overflow-x-hidden">
           <div className="text-5xl ">
             <h1>{list}</h1>
+            <h1>You Don't have access for this course.Please contact to Help Desk</h1>
           </div>
           {data &&
             data?.map((item) => {
@@ -52,6 +53,7 @@ const Card = (props) => {
                   key={item.id}>
                   <div>
                     <h2>{item?.snippet?.title}</h2>
+
                   </div>
                 </div>
               );
@@ -71,5 +73,4 @@ const Card = (props) => {
     </Fragment>
   );
 };
-
-export default Card;
+export default EnrollmentForm;

@@ -35,6 +35,7 @@ import UserDashboard from "./userDashboard/UserDashboard";
 import ForgetpasswordPCS from "./pcsPages/ForgetPasswordPCS";
 import ResetPasswordPCS from "./pcsPages/ResetPasswordPCS";
 import MyCourse from "./pcsPages/MyCourse";
+import EnrollmentForm from "./form/EnrollmentForm";
 axios.defaults.baseURL = "http://localhost:8000";
 // axios.defaults.baseURL = "http://107.22.154.213";
 
@@ -70,6 +71,7 @@ const App = () => {
               path="/dashboard"
               element={<Dashboard searchTerm={searchTerm} />}
             />
+            <Route path="/enroll" element={<EnrollmentForm />} />
             <Route
               path="/my-course"
               element={<MyCourse searchTerm={searchTerm} />}

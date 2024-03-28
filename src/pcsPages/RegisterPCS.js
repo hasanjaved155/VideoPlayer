@@ -11,31 +11,81 @@ const RegisterPCS = () => {
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  //const [isValid, setIsValid] = useState(false);
+
+  const validatePassword = (value) => {
+    // Regular expressions to check for at least one special character and one number
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    const numberRegex = /[0-9]/;
+
+    // Check if password meets all criteria
+    const isLengthValid = value.length >= 10;
+    const hasSpecialChar = specialCharRegex.test(value);
+    const hasNumber = numberRegex.test(value);
+
+    return isLengthValid && hasSpecialChar && hasNumber;
+  };
+  const handlePasswordChange = (event) => {
+    const value = event.target.value;
+    setPassword(value);
+    setPasswordError(
+      !validatePassword(value)
+        ? "Password must be 10 characters long and contain at least one special character and one number"
+        : ""
+    );
+  };
+
+  const validateEmail = (value) => {
+    // Regular expression to match Gmail-like email addresses
+    //const gmailRegex = /^[a-zA-Z0-9._-]+@gmail.com$/;
+
+    // Regular expression to match domain pcsgpl.com
+    const pcsgplRegex = /@pcsgpl.com$/;
+
+    // Check if the email matches the Gmail pattern and contains pcsgpl.com domain
+    if (pcsgplRegex.test(value)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleEmailChange = (event) => {
+    const value = event.target.value;
+    setEmail(value);
+    setEmailError(!validateEmail(value) ? "Enter Your Official Email ID" : "");
+  };
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const res = await axios.post("/authpcs/register-pcs", {
-        firstName,
-        lastName,
-        email,
-        password,
-        phoneNo,
-        employeeId,
-        dateOfJoining,
-      });
-      console.log(res);
-      if (res && res.data.success) {
-        toast.success(res.data.message);
-        navigate("/login-pcs");
-      } else if (!res.data.success) {
-        toast.error(res.data.message);
+    if (validatePassword(password) && validateEmail(email)) {
+      try {
+        const res = await axios.post("/authpcs/register-pcs", {
+          firstName,
+          lastName,
+          email,
+          password,
+          phoneNo,
+          employeeId,
+          dateOfJoining,
+        });
+        console.log(res);
+        if (res && res.data.success) {
+          toast.success(res.data.message);
+          navigate("/login-pcs");
+        } else if (!res.data.success) {
+          toast.error(res.data.message);
+        }
+      } catch (error) {
+        toast.error(error.message);
       }
-    } catch (error) {
-      toast.error(error.message);
+    } else {
+      toast.error("Please fill in all required fields correctly.");
     }
   };
 
@@ -113,8 +163,12 @@ const RegisterPCS = () => {
                   name="email"
                   placeholder="Enter Official Email ID*"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleEmailChange}
                 />
+                {emailError && <p className="text-red-500">{emailError}</p>}
+                {validateEmail(email) && (
+                  <p className="text-green-500">Valid Email!!</p>
+                )}
               </div>
               <div className="flex flex-wrap items-center">
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -139,8 +193,14 @@ const RegisterPCS = () => {
                   name="password"
                   placeholder="Enter Password*"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handlePasswordChange}
                 />
+                {passwordError && (
+                  <p className="text-red-500">{passwordError}</p>
+                )}
+                {validatePassword(password) && (
+                  <p className="text-green-500">Password is valid</p>
+                )}
               </div>
             </div>
 
