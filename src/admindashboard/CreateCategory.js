@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+
 import toast from "react-hot-toast";
 
-const AdminCategory = () => {
+const CreateCategory = () => {
   const [categoryName, setCategoryName] = useState("");
-  const [subCategoryName, setSubCategoryName] = useState("");
-  const [subSubCategoryName, setSubSubCategoryName] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Send a POST request to the backend API to add subsubcategory
-      const res = await axios.post("/create/categories", {
+      const res = await axios.post("/category/createCategory", {
         categoryName,
-        subCategoryName,
-        subSubCategoryName,
       });
       if (res && res.data.success) {
         toast.success(res.data.message);
@@ -28,9 +23,14 @@ const AdminCategory = () => {
   };
 
   return (
-    <div className="w-[18rem] ml-10 md:ml-40 md:w-[30rem] mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
-      <h2 className="text-2xl font-semibold mb-4">Create Category</h2>
-
+    <div
+      className="max-w-md mx-auto bg-white p-8 border border-gray-300 rounded-md shadow-md"
+      style={{
+        width: "auto",
+        height: "16rem",
+        marginTop: "4rem",
+        marginLeft: "5rem",
+      }}>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2">
@@ -39,37 +39,15 @@ const AdminCategory = () => {
           <input
             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
             type="text"
+            name="categoryName"
             value={categoryName}
+            placeholder="Enter Category Name"
             onChange={(e) => setCategoryName(e.target.value)}
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">
-            Subcategory:
-          </label>
-          <input
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-            type="text"
-            value={subCategoryName}
-            onChange={(e) => setSubCategoryName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">
-            Subsubcategory:
-          </label>
-          <input
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-            type="text"
-            value={subSubCategoryName}
-            onChange={(e) => setSubSubCategoryName(e.target.value)}
-            required
-          />
-        </div>
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500"
+          className="bg-blue-500 hover:bg-blue-600 mt-[4rem] text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-500"
           type="submit">
           Create Category
         </button>
@@ -78,7 +56,7 @@ const AdminCategory = () => {
   );
 };
 
-export default AdminCategory;
+export default CreateCategory;
 
 // [
 //   {

@@ -4,7 +4,7 @@ const AdminDetails = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div className="md:ml-[60px] w-[25rem] md:w-[55rem] -ml-[3rem]">
+    <div className="md:ml-[20px] w-[25rem] md:w-[55rem] -ml-[3rem]">
       <div className="md:card md:card-side bg-base-100 shadow-xl ml-20 md:h-[390px]">
         <figure>
           <img

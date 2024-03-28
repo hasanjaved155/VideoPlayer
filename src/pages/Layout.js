@@ -6,7 +6,15 @@ import Navbar2 from "../components/Navbar2";
 const Layout = ({ children, searchTerm, setSearchTerm, setDropdown }) => {
   return (
     <Fragment>
-      <header className="mb-[4rem] md:mb-[1rem]">
+      <header
+        className="m-auto"
+        style={{
+          //position: "relative",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+
+          border: "2px solid blue",
+        }}>
         {/* <Navbar /> */}
         <Navbar2
           searchTerm={searchTerm}
@@ -15,9 +23,7 @@ const Layout = ({ children, searchTerm, setSearchTerm, setDropdown }) => {
         />
       </header>
       <main>{children}</main>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </Fragment>
   );
 };

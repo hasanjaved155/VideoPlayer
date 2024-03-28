@@ -3,10 +3,12 @@ import CreateDashboard from "./CreateDashboard";
 import CreatePlaylist from "./CreatePlaylist";
 import ShowAllUsers from "./ShowAllUsers";
 import AdminDetails from "./AdminDetails";
-import AdminCategory from "./AdminCategory";
 import AllUsersPCS from "../pcsPages/AllUsersPCS";
 import CreateMyCourse from "./CreateMyCourse";
 import AssignCourse from "./AssignCourse";
+import CreateCategory from "./CreateCategory";
+import CreateSubCategory from "./CreateSubCategory";
+import CreateSubSubCategory from "./CreateSubSubCategory";
 
 const AdminDashboard = () => {
   const [select, setSelect] = useState("admin");
@@ -55,9 +57,19 @@ const AdminDashboard = () => {
               <div> All PCS Global's Users</div>
             </div>
             <div
-              className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="block cursor-pointer py-2 px-4 mb-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               onClick={(e) => setSelect("categories")}>
               <div> Create Category</div>
+            </div>
+            <div
+              className="block cursor-pointer py-2 px-4 mb-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={(e) => setSelect("subcategories")}>
+              <div> Create subCategory</div>
+            </div>
+            <div
+              className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={(e) => setSelect("subsubcategories")}>
+              <div> Create SubSubCategory</div>
             </div>
           </div>
         </div>
@@ -70,7 +82,9 @@ const AdminDashboard = () => {
             {select === "playlist" && <CreatePlaylist />}
             {select === "users" && <ShowAllUsers />}
             {select === "users-pcs" && <AllUsersPCS />}
-            {select === "categories" && <AdminCategory />}
+            {select === "categories" && <CreateCategory />}
+            {select === "subcategories" && <CreateSubCategory />}
+            {select === "subsubcategories" && <CreateSubSubCategory />}
           </div>
         </div>
       </div>

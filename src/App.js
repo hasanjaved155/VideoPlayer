@@ -34,8 +34,9 @@ import RegisterPCS from "./pcsPages/RegisterPCS";
 import LoginPCS from "./pcsPages/LoginPCS";
 import ForgetpasswordPCS from "./pcsPages/ForgetPasswordPCS";
 import ResetPasswordPCS from "./pcsPages/ResetPasswordPCS";
-axios.defaults.baseURL = "http://localhost:8000";
-// axios.defaults.baseURL = "http://107.22.154.213";
+import EnrollmentForm from "./form/EnrollmentForm";
+// axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "http://107.22.154.213";
 
 const App = () => {
   const [playlist, setPlaylist] = useState([]);
@@ -69,6 +70,7 @@ const App = () => {
               path="/dashboard"
               element={<Dashboard searchTerm={searchTerm} />}
             />
+            <Route path="/enroll" element={<EnrollmentForm />} />
             <Route
               path="/my-course"
               element={<MyCourse searchTerm={searchTerm} />}

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const CreateMyCourse = () => {
@@ -10,22 +10,6 @@ const CreateMyCourse = () => {
   const [image, setImage] = useState({});
 
   const navigate = useNavigate();
-
-  //   const [user, setUser] = useState("");
-
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const res = await axios.get(`/authpcs/users-pcs/${id}`);
-  //       setUser(res.data.user);
-  //       console.log(user);
-  //     } catch (err) {
-  //       console.error(`Failed to fetch dashboards: ${err}`);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     fetchUsers();
-  //   }, [id]);
 
   const handleImage = async (e) => {
     const file = e.target.files[0];
