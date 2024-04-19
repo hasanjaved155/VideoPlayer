@@ -10,6 +10,7 @@ const CourseDetails = ({ listobject }) => {
                     listId={listobject.listId}
                     name={listobject.name}
                     lecId={listobject.lecId}
+                    role={listobject.role}
                 />
             </div>
         </Fragment>

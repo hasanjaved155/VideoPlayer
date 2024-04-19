@@ -35,6 +35,11 @@ import LoginPCS from "./pcsPages/LoginPCS";
 import ForgetpasswordPCS from "./pcsPages/ForgetPasswordPCS";
 import ResetPasswordPCS from "./pcsPages/ResetPasswordPCS";
 import EnrollmentForm from "./form/EnrollmentForm";
+import ProtectedEnroll from "./components/ProtectedEnroll";
+import EmployeeInformation from "./pcsPages/EmployeeInformation";
+import UserPCSDetails from "./pcsPages/UserPCSDetails";
+import Review from "./Comment/Review";
+import EnrollNow from "./TopScript/EnrollNow";
 // axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.baseURL = "http://107.22.154.213";
 
@@ -42,6 +47,7 @@ const App = () => {
   const [playlist, setPlaylist] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [displaydown, setDropdown] = useState([]);
+  const [userId, setUserId] = useState("");
 
   const fetchPlaylist = async () => {
     try {
@@ -65,12 +71,13 @@ const App = () => {
           setSearchTerm={setSearchTerm}
           setDropdown={setDropdown}>
           <Routes>
+            <Route path="/enrollnow" element={<EnrollNow />} />
             <Route path="/" element={<Home />} />
             <Route
               path="/dashboard"
               element={<Dashboard searchTerm={searchTerm} />}
             />
-            <Route path="/enroll" element={<EnrollmentForm />} />
+
             <Route
               path="/my-course"
               element={<MyCourse searchTerm={searchTerm} />}
@@ -100,6 +107,10 @@ const App = () => {
               {/* <Route path="/user/user-details" element={<UserDetails />} /> */}
             </Route>
 
+            <Route element={<ProtectedEnroll />}>
+              <Route path="/enroll" element={<EnrollmentForm />} />
+            </Route>
+
             <Route element={<ProtectedDashboard />}>
               {playlist.map((a) => {
                 return (
@@ -113,8 +124,12 @@ const App = () => {
 
             <Route path="/authSignup" element={<SignUpComponent />} />
             <Route path="/authSignin" element={<SignInComponent />} />
-            <Route path="/register-pcs" element={<RegisterPCS />} />
+            <Route path="/register-pcs" element={<RegisterPCS setUserId={setUserId} />} />
+            {userId && <Route path="/employee" element={<EmployeeInformation userId={userId} />} />}
+            {/* <Route path="/employee" element={<EmployeeInformation userId={userId} />} /> */}
+
             <Route path="/login-pcs" element={<LoginPCS />} />
+            {/* <Route path="/user/:_id" element={<UserPCSDetails />} /> */}
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<Forgetpassword />} />
@@ -131,7 +146,8 @@ const App = () => {
               element={<ResetPasswordPCS />}
             />
             <Route path="/help" element={<Help />} />
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="/feedback" element={<Review />} />
+            {/* <Route path="*" element={<PageNotFound />} /> */}
           </Routes>
         </Layout>
       </BrowserRouter>

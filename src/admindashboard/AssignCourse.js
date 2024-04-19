@@ -7,7 +7,7 @@ const AssignCourse = () => {
   const [users, setUsers] = useState([]);
   const [courses, setCourses] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedCourses, setSelectedCourses] = useState("");
 
   useEffect(() => {
     // Fetch users and courses data when component mounts
@@ -26,29 +26,69 @@ const AssignCourse = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("/course/get-course");
-      setCourses(response.data.courses);
+      const response = await axios.get("/dashboard/get-dashboard");
+      setCourses(response.data.dashboards);
     } catch (error) {
       toast.error("Error fetching courses:", error);
     }
   };
 
+  const handleCheckboxChange = (courseId) => {
+    if (selectedCourses.includes(courseId)) {
+      setSelectedCourses(selectedCourses.filter(id => id !== courseId));
+    } else {
+      setSelectedCourses([...selectedCourses, courseId]);
+    }
+  };
+
+  // const handleAssignCourse = async () => {
+  //   if (!selectedUser || !selectedCourse) {
+  //     toast.error("Please select a user and a course.");
+  //     return;
+  //   }
+
+  //   try {
+  //     const res = await axios.post("/course/assignments", {
+  //       userId: selectedUser,
+  //       courseId: selectedCourse,
+  //     });
+  //     if (res && res.data.success) {
+  //       toast.success(res.data.message);
+  //     } else if (!res.data.success) {
+  //       toast.error(res.data.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //   }
+  // };
+
   const handleAssignCourse = async () => {
-    if (!selectedUser || !selectedCourse) {
+    if (!selectedUser || selectedCourses.length === 0) {
       toast.error("Please select a user and a course.");
       return;
     }
 
+    // console.log(selectedCourses)
+    // console.log(selectedUser);
+
     try {
-      const res = await axios.post("/course/assignments", {
-        userId: selectedUser,
-        courseId: selectedCourse,
+      const promises = selectedCourses.map(async (courseId) => {
+        const res = await axios.post("/dashboard/assignments", {
+          userId: selectedUser,
+          courseId,
+        });
+        return res;
       });
-      if (res && res.data.success) {
-        toast.success(res.data.message);
-      } else if (!res.data.success) {
-        toast.error(res.data.message);
-      }
+
+      const results = await Promise.all(promises);
+
+      results.forEach((res) => {
+        if (res && res.data.success) {
+          toast.success(res.data.message);
+        } else if (res && !res.data.success) {
+          toast.error(res.data.message);
+        }
+      });
     } catch (error) {
       toast.error(error.message);
     }
@@ -71,22 +111,27 @@ const AssignCourse = () => {
           ))}
         </select>
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 mb-2">Select Course:</label>
-        <select
-          className="block w-full p-2 border border-gray-300 rounded-md"
-          value={selectedCourse}
-          onChange={(e) => setSelectedCourse(e.target.value)}>
-          <option value="">Select Course</option>
-          {courses.map((course) => (
-            <option key={course._id} value={course._id}>
-              {course.name}
-            </option>
-          ))}
-        </select>
+
+      <label className="block text-gray-700">Select Courses:</label>
+      <div className="mb-4 overflow-x-auto overflow-scroll" style={{ height: "10rem" }}>
+
+        {courses.map((course) => (
+          <div key={course._id} className="flex items-center mb-2 table table-xs table-pin-rows table-pin-cols"
+          >
+            <input
+              type="checkbox"
+              id={course._id}
+              value={course._id}
+              checked={selectedCourses.includes(course._id)}
+              onChange={() => handleCheckboxChange(course._id)}
+              className="mr-2"
+            />
+            <label htmlFor={course._id}>{course.name}</label>
+          </div>
+        ))}
       </div>
       <button
-        className="bg-blue-500 mt-20 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
+        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
         onClick={handleAssignCourse}>
         Assign Course
       </button>

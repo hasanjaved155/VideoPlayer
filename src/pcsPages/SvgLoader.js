@@ -15,10 +15,10 @@ const SvgLoader = () => {
   return (
     <div className="md:col-span-5">
       <div className="flex justify-center items-center">
-        <div id="lottie-container" className=" ml-20 md:mt-14 mt-12">
+        <div id="lottie-container" className=" ml-20">
           <img
             className=" rounded-lg md:w-[400px] md:h-[320px] md:mt-2 mb-2"
-            src={image}
+            src={require('../images/gif.gif')}
             alt=""
           />
         </div>

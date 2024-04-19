@@ -1,69 +1,68 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import SvgLoader from "./SvgLoader";
+
+import SignUpAnimation from "./SignUpAnimation"
 
 const SignUpComponent = () => {
   return (
-    <div>
-      <div>
-        <h1 className="text-2xl font-bold -mb-7 md:ml-[36rem]">SIGN UP AS</h1>
-      </div>
+    <div className="relative mt-7 mb-7">
+
       <div
-        className="flex  rounded-lg md:h-[450px] md:w-[1230px] md:ml-[130px] "
-        style={{
-          border: "2px solid #ffb284",
-        }}>
-        <div>
-          <SvgLoader />
+        className="flex justify-end  bg-blue-300 drop-shadow-2xl rounded-2xl gap-24 h-[450px] lg:w-[85%] lg:ml-[6.3rem] left-0 right-0 relative"
+      >
+        <div className="hidden  md:block">
+          <SignUpAnimation />
         </div>
 
-        <div className="p-12 gap-8 flex" style={{ marginLeft: "150px" }}>
-          <Link to="/register-pcs" className="col-6">
+        <div className="md:px-20  md:gap-8 bg-slate-100 flex justify-center rounded-2xl"
+        >
+          <h1 className="text-2xl font-bold absolute py-4">SIGN UP AS</h1>
+          <Link to="/register-pcs" className="col-6 flex items-center hover:text-lg">
             <div
-              className=" hover:bg-orange-400 row align-items-center py-3 my-1 clickable-item px-2 mx-1 hover:bg-opacity-25 hover:border-orange-500 rounded-lg justify-between"
+              className="hover:bg-blue-100 py-3 my-1 clickable-item px-2 mx-1 hover:bg-opacity-60 hover:border-blue-500 rounded-lg justify-between"
               style={{
-                border: "2px solid #ffb284",
-                transition: "border 0.3s, background-color 0.3s",
+                // border: "2px solid #ffb284",
+                transition: "border 0.3s, background-color 0.3s , text 2s"
               }}>
               <div className="col-md-6 col-12">
                 <div className="w-full h-full">
                   {/* eslint-disable-next-line */}
                   <img
-                    className="height-intoggle intoggle-sign-img1"
-                    src="https://www.pcsglobal.in/assets/images/logo.jpg"
-                    style={{ width: "200px", height: "60px" }}
+                    className="height-intoggle intoggle-sign-img1 h-52 w-auto object-contain"
+                    src={require('../images/pcs logo.png')}
                   />
                 </div>
               </div>
-              <div className="col-md-6 p-0 col-12">
-                <p className="text-center text-gray-500 text-xs mb-1">I am</p>
-                <h5 className="text-center">PCS Global Employee</h5>
+              <div className="col-md-6 p-0   col-12">
+                <p className="text-center text-gray-700 mb-1">I am</p>
+                <h5 className="text-center font-bold">PCS Employee</h5>
               </div>
             </div>
           </Link>
 
-          <Link to="/register" className="col-6">
+          <Link to="/register" className="col-6 flex items-center hover:text-lg">
+
             <div
-              className=" hover:bg-orange-400 row align-items-center py-3 my-1 clickable-item px-2 mx-1 hover:bg-opacity-25  hover:border-orange-500 rounded-lg justify-between"
+              className="hover:bg-blue-100 py-3 my-1 clickable-item px-2 mx-1 hover:bg-opacity-60 hover:border-blue-500 rounded-lg justify-between"
               style={{
-                border: "2px solid #ffb284",
-                transition: "border 0.3s, background-color 0.3s",
+                // border: "2px solid #ffb284",
+                transition: "border 0.3s, background-color 0.3s , text 2s"
               }}>
               <div className="col-md-6 col-12">
                 {/* eslint-disable-next-line */}
                 <div className="w-full h-full">
                   {/* eslint-disable-next-line */}
                   <img
-                    className="height-intoggle intoggle-sign-img1"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTatTxNe4o_qRtI8F9s_zjSRrHExhm0frxsFPcA6SNqYDv1HQTPZ5HQsMRLyizq7e2nVBI&usqp=CAU"
-                    style={{ width: "200px", height: "60px" }}
+                    className="height-intoggle intoggle-sign-img1 h-52 w-auto object-contain"
+                    src={require('../images/User.png')}
+
                   />
                 </div>
               </div>
-              <div className="col-md-6 p-0 col-12">
-                <p className="text-center text-gray-500 text-xs mb-1">I am</p>
-                <h5 className="text-center">General User</h5>
+              <div className="col-md-6 p-0  col-12">
+                <p className="text-center text-gray-700 mb-1">I am</p>
+                <h5 className="text-center font-bold">General User</h5>
               </div>
             </div>
           </Link>

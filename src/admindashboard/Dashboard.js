@@ -61,11 +61,8 @@ const Dashboard = ({ searchTerm }) => {
           {dashboards?.length > 0 &&
             dashboards?.map((item) => (
               <div key={item._id} className="relative ">
-                {!user?.employeeId &&
-                  item?.role &&
-                  item?.role[0]?.rolename === "Employee" ? (
-                  <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl"
-                    onClick={() => handleClick(item)}>
+                <Link to={  item?.link}>
+                  <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
                     <img
                       className="rounded-t-lg"
                       src={item?.image}
@@ -79,24 +76,7 @@ const Dashboard = ({ searchTerm }) => {
                       </h5>
                     </div>
                   </div>
-                ) : (
-                  <Link to={item?.link}>
-                    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
-                      <img
-                        className="rounded-t-lg"
-                        src={item?.image}
-                        alt=""
-                        style={{ width: "300px", height: "140px" }}
-                      />
-                      <div className="p-5">
-                        <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          {item?.name.slice(0, 28)} <br />
-                          {item?.name.slice(28)}
-                        </h5>
-                      </div>
-                    </div>
-                  </Link>
-                )}
+                </Link>
               </div>
             ))}
         </div>
