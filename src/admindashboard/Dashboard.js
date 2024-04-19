@@ -61,7 +61,7 @@ const Dashboard = ({ searchTerm }) => {
           {dashboards?.length > 0 &&
             dashboards?.map((item) => (
               <div key={item._id} className="relative ">
-                <Link to={  item?.link}>
+                <Link to={item?.link}>
                   <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
                     <img
                       className="rounded-t-lg"
