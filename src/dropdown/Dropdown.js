@@ -91,9 +91,8 @@ const Dropdown = ({
             style={{ fontSize: "1.10rem" }}>
             <span>Category</span>
             <svg
-              className={`h-4 w-4 ml-1 transition-transform duration-200 transform ${
-                showDropdown ? "rotate-180" : ""
-              }`}
+              className={`h-4 w-4 ml-1 transition-transform duration-200 transform ${showDropdown ? "rotate-180" : ""
+                }`}
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -150,11 +149,10 @@ const Dropdown = ({
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className={`h-4 w-4 ml-1 mt-[3px] transition-transform duration-200 transform ${
-                              selectedDropdown === categoryItem.categoryName
-                                ? "rotate-0"
-                                : "rotate-180"
-                            }`}>
+                            className={`h-4 w-4 ml-1 mt-[3px] transition-transform duration-200 transform ${selectedDropdown === categoryItem.categoryName
+                              ? "rotate-0"
+                              : "rotate-180"
+                              }`}>
                             <path
                               stroke-linecap="round"
                               stroke-linejoin="round"
@@ -202,8 +200,8 @@ const Dropdown = ({
                                       onClick={() => {
                                         typeof subCategory === "object"
                                           ? toggleSubSubDropdown(
-                                              subCategory.subCategoryName
-                                            )
+                                            subCategory.subCategoryName
+                                          )
                                           : toggleSubSubDropdown(subCategory);
                                         handlegetsubsubCategory(
                                           subCategory?._id
@@ -222,12 +220,11 @@ const Dropdown = ({
                                         viewBox="0 0 24 24"
                                         stroke-width="1.5"
                                         stroke="currentColor"
-                                        className={`h-4 w-4 ml-1 mt-[3px] transition-transform duration-200 transform ${
-                                          selectedSubDropdown ===
+                                        className={`h-4 w-4 ml-1 mt-[3px] transition-transform duration-200 transform ${selectedSubDropdown ===
                                           subCategory.subCategoryName
-                                            ? "rotate-0"
-                                            : "rotate-180"
-                                        }`}>
+                                          ? "rotate-0"
+                                          : "rotate-180"
+                                          }`}>
                                         <path
                                           stroke-linecap="round"
                                           stroke-linejoin="round"
@@ -237,7 +234,7 @@ const Dropdown = ({
                                     </button>
                                     {typeof subCategory === "object" &&
                                       selectedSubDropdown ===
-                                        subCategory.subCategoryName && (
+                                      subCategory.subCategoryName && (
                                         <div
                                           className="text-white absolute w-[17.6rem]   sm:ml-[-21px] h-[30.7rem] right-0 top-0 mt-0 ml-10 rounded-lg shadow-lg md:w-[18rem] md:left-[307px] md:h-[32rem]"
                                           style={{

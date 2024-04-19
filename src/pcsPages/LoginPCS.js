@@ -19,11 +19,12 @@ const LoginPCS = () => {
       dispatch(getUserConfiguration(res.data.user));
       //console.log(res);
       if (res && res.data.success) {
+        console.log(res.data.user)
         toast.success(res.data.message);
         localStorage.setItem("token", JSON.stringify(res.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));
         navigate("/dashboard");
-      } else if (!res.data.success) {
+      } else {
         toast.error(res.data.message);
       }
     } catch (error) {

@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
 // import Navbar from "../components/Navbar";
 import Footer from "./Footer";
-import Navbar2 from "../components/Navbar2";
+
+import Navbar3 from "../components/Navbar3";
+import Script from "../TopScript/Script";
 
 const Layout = ({ children, searchTerm, setSearchTerm, setDropdown }) => {
   return (
@@ -9,14 +11,10 @@ const Layout = ({ children, searchTerm, setSearchTerm, setDropdown }) => {
       <header
         className="m-auto"
         style={{
-          //position: "relative",
-          paddingLeft: "20px",
-          paddingRight: "20px",
-
           border: "2px solid blue",
         }}>
-        {/* <Navbar /> */}
-        <Navbar2
+        <Script />
+        <Navbar3
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           setDropdown={setDropdown}

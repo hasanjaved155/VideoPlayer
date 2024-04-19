@@ -2,8 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-const RegisterPCS = () => {
+const RegisterPCS = ({ setUserId }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [employeeId, setEmployeeId] = useState("");
@@ -74,10 +75,11 @@ const RegisterPCS = () => {
           employeeId,
           dateOfJoining,
         });
-        console.log(res);
+        // console.log(res);
+        setUserId(res?.data?.user?._id)
         if (res && res.data.success) {
           toast.success(res.data.message);
-          navigate("/login-pcs");
+          navigate("/employee");
         } else if (!res.data.success) {
           toast.error(res.data.message);
         }
@@ -88,6 +90,19 @@ const RegisterPCS = () => {
       toast.error("Please fill in all required fields correctly.");
     }
   };
+
+
+  const inputStyles = () => ({
+    border: '1px solid transparent',
+    transition: 'border-color 0.3s ease',
+    padding: '8px',
+    outline: 'none',
+    '&:focus': {
+      borderColor: 'blue',
+    },
+  });
+
+  const InputStyled = styled.input(inputStyles());
 
   return (
     <div className="flex justify-center items-center bg-white md:ml-72 md:h-[550px]">
@@ -104,8 +119,8 @@ const RegisterPCS = () => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   First Name
                 </label>
-                <input
-                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
+                <InputStyled
+                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="text"
                   name="firstName"
                   placeholder="First Name*"
@@ -117,7 +132,7 @@ const RegisterPCS = () => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Last Name
                 </label>
-                <input
+                <InputStyled
                   className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
                   type="text"
                   name="lastName"
@@ -130,7 +145,7 @@ const RegisterPCS = () => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Employee ID
                 </label>
-                <input
+                <InputStyled
                   className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
                   type="number"
                   name="employeeId"
@@ -143,7 +158,7 @@ const RegisterPCS = () => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Date Of Joining
                 </label>
-                <input
+                <InputStyled
                   className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
                   type="date"
                   name="dateOfJoining"
@@ -157,7 +172,7 @@ const RegisterPCS = () => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Official Email ID
                 </label>
-                <input
+                <InputStyled
                   className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
                   type="email"
                   name="email"
@@ -174,7 +189,7 @@ const RegisterPCS = () => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Phone
                 </label>
-                <input
+                <InputStyled
                   className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
                   type="number"
                   name="phoneNo"
@@ -187,7 +202,7 @@ const RegisterPCS = () => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Password
                 </label>
-                <input
+                <InputStyled
                   className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
                   type="password"
                   name="password"
@@ -238,6 +253,8 @@ const RegisterPCS = () => {
 };
 
 export default RegisterPCS;
+
+
 
 // {/* <div
 //                   div

@@ -41,7 +41,7 @@ const Home = () => {
           />
         </div>
         <div
-          className=" rounded-full  bg-gray-100"
+          className=" rounded-3xl  bg-gray-100"
           style={{
             position: "relative",
             left: "0",
@@ -55,10 +55,16 @@ const Home = () => {
             <h2 className="text-[2.4vw] font-bold mb-2 ">
               WELCOME TO PCS GLOBAL PVT LTD
             </h2>
-            <h3 className="text-[1.5vw]">Look at this Company!!!Let's go</h3>
+            <h3 className="text-[1vw] italic">"The House I have built where every unplaced fresher , who are suffering multiple problem with career can get a peaceful shelter to rebuild a massive career"</h3>
             <h3 className="text-[1.5vw]">
-              The goal is to learn without stress
+              - Alok Halder ( Founder )
             </h3>
+            <div className="flex justify-center">
+              <a className="flex items-center  justify-center  hover:bg-blue-100 w-[70%] rounded-3xl" href="https://www.youtube.com/@PCSGlobalPrivateLimited" target="_blank">
+                <img className="w-20" src={require('../images/vecteezy_youtube-logo-png-youtube-icon-transparent_18930572.png')} alt="" />
+                <h3 className="text-gray-800  hover:text-blue-600" >Visit our youtube channel</h3>
+              </a>
+            </div>
           </div>
         </div>
       </div>

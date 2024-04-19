@@ -13,7 +13,7 @@ const MyCourse = ({ searchTerm }) => {
     const fetchMyCourses = async () => {
       try {
         const response = await axios.get(
-          `/course/${user?._id}/assigned-courses`
+          `/dashboard/${user?._id}/assigned-courses`
         );
         setMyCourses(response.data.course);
         //console.log(myCourses);

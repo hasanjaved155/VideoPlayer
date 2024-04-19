@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <div
       className="container bg-gray-900 py-8 px-4 text-gray-300 mt-4 text-left"
-      style={{ maxWidth: "100%" }}>
+    >
       <div className="grid grid-cols-2 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-10 gap-10">
         <div>
           <h3 className="text-lg font-semibold mb-2">About Us</h3>
