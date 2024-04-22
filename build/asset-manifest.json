@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.dff69bfc.css",
-    "main.js": "/static/js/main.29909471.js",
+    "main.js": "/static/js/main.0ca9b107.js",
     "static/media/front-view-stacked-books-graduation-cap-ladders-education-day.jpg": "/static/media/front-view-stacked-books-graduation-cap-ladders-education-day.7a2107ee060c70fddafd.jpg",
     "static/media/gif.gif": "/static/media/gif.a0b339e35ccfe1467cea.gif",
     "static/media/pcs logo.png": "/static/media/pcs logo.4790cc5f49bd9caa4a6a.png",
@@ -10,10 +10,10 @@
     "static/media/User.png": "/static/media/User.31b85cf92ca19564d432.png",
     "index.html": "/index.html",
     "main.dff69bfc.css.map": "/static/css/main.dff69bfc.css.map",
-    "main.29909471.js.map": "/static/js/main.29909471.js.map"
+    "main.0ca9b107.js.map": "/static/js/main.0ca9b107.js.map"
   },
   "entrypoints": [
     "static/css/main.dff69bfc.css",
-    "static/js/main.29909471.js"
+    "static/js/main.0ca9b107.js"
   ]
 }
