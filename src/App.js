@@ -41,7 +41,7 @@ import UserPCSDetails from "./pcsPages/UserPCSDetails";
 import Review from "./Comment/Review";
 import EnrollNow from "./TopScript/EnrollNow";
 // axios.defaults.baseURL = "http://localhost:8000";
-axios.defaults.baseURL = "http://107.22.154.213";
+axios.defaults.baseURL = "http://3.212.222.137";
 
 const App = () => {
   const [playlist, setPlaylist] = useState([]);
