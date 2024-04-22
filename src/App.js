@@ -41,6 +41,8 @@ import EmployeeInformation from "./pcsPages/EmployeeInformation";
 import UserPCSDetails from "./pcsPages/UserPCSDetails";
 import Review from "./Comment/Review";
 import EnrollNow from "./TopScript/EnrollNow";
+import Instructor from "./Instructor/Instructor";
+import Payment from "./TopScript/Payment";
 axios.defaults.baseURL = "http://localhost:8000";
 // axios.defaults.baseURL = "http://107.22.154.213";
 
@@ -73,6 +75,8 @@ const App = () => {
           setDropdown={setDropdown}>
           <Routes>
             <Route path="/enrollnow" element={<EnrollNow />} />
+            <Route path="/teach" element={<Instructor />} />
+
             <Route path="/" element={<Home />} />
             <Route
               path="/dashboard"
@@ -88,24 +92,14 @@ const App = () => {
               element={<DropDashboard displaydown={displaydown} />}
             />
 
+
+
             <Route element={<ProtectedAdmin />}>
               <Route path="/admin" element={<AdminDashboard />} />
-              {/* <Route
-                path="/admin/createDashboard"
-                element={<CreateDashboard />}
-              /> */}
-              {/* <Route path="/admin/allUsers" element={<ShowAllUsers />} />
-              <Route path="/admin/users-pcs" element={<ShowAllUsers />} />
-              <Route
-                path="/admin/createPlaylist"
-                element={<CreatePlaylist />}
-              />
-              <Route path="/admin/createCategory" element={<AdminCategory />} /> */}
             </Route>
 
             <Route element={<ProtectedUser />}>
               <Route path="/user" element={<UserDashboard />} />
-              {/* <Route path="/user/user-details" element={<UserDetails />} /> */}
             </Route>
 
             <Route element={<ProtectedEnroll />}>
@@ -121,6 +115,7 @@ const App = () => {
                   />
                 );
               })}
+              <Route path="/payment" element={<Payment />} />
             </Route>
 
             <Route path="/authSignup" element={<SignUpComponent />} />

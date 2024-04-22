@@ -8,15 +8,10 @@ const ProtectedUser = () => {
   //console.log(admin);
 
   if (!localStorage.getItem("token")) {
-    return navigate("/login-pcs");
+    return navigate("/authSignin");
   }
 
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //console.log(user);
 
-  //   if (user.role !== "admin") {
-  //     return navigate("/dashboard");
-  //   }
   return (
     <div>
       <Outlet />
