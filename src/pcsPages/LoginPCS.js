@@ -2,24 +2,23 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { getUserConfiguration } from "../store/userSlice";
+// import { useDispatch } from "react-redux";
+// import { getUserConfiguration } from "../store/userSlice";
 
 const LoginPCS = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("/authpcs/login-pcs", { email, password });
-      dispatch(getUserConfiguration(res.data.user));
+      // dispatch(getUserConfiguration(res.data.user));
       //console.log(res);
       if (res && res.data.success) {
-        console.log(res.data.user)
         toast.success(res.data.message);
         localStorage.setItem("token", JSON.stringify(res.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));

@@ -14,7 +14,8 @@ const Script = () => {
         const fetchTodayFestival = async () => {
             try {
                 const res = await axios.get('/festival/today');
-                setTodayFestival(res.data.festival);
+                setTodayFestival(res?.data?.festival);
+                // console.log(res.data.festival)
             } catch (error) {
                 console.error('Error fetching today\'s festival:', error);
             } finally {

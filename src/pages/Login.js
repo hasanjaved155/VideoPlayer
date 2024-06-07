@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getUserConfiguration } from "../store/userSlice";
+// import { useDispatch } from "react-redux";
+// import { getUserConfiguration } from "../store/userSlice";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,8 +18,6 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post("/auth/login", { email, password });
-      dispatch(getUserConfiguration(res.data.user));
-      console.log(res);
       if (res && res.data.success) {
         toast.success(res.data.message);
         localStorage.setItem("token", JSON.stringify(res.data.token));

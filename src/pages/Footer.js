@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -9,43 +10,82 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-2">About Us</h3>
           <ul className="list-none">
-            <li>About PCS Global Pvt Ltd</li>
-            <li>We're Hiring</li>
-            <li>Blog</li>
-            <li>Support</li>
-            <li>Press</li>
-            <li>Affiliates</li>
-          </ul>
+            <Link to='/construct'>
+              <li>About PCS Global Pvt Ltd</li>
+            </Link>
+            <Link to='/construct'>
+              <li>We're Hiring</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Blog</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Support</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Press</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Affiliates</li>
+            </Link></ul>
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-2">Resources</h3>
           <ul className="list-none">
-            <li>PCS Global Business</li>
-            <li>Teach on PCS Global</li>
-            <li>Get the app</li>
-            <li>About us</li>
-            <li>Contact us</li>
-          </ul>
+            <Link to='/construct'>
+              <li>PCS Global Business</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Teach on PCS Global</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Get the app</li>
+            </Link>
+            <Link to='/construct'>
+              <li>About us</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Contact us</li>
+            </Link></ul>
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-2">Programs</h3>
           <ul className="list-none">
-            <li>PCS Global Business</li>
-            <li>Teach on PCS Global</li>
-            <li>Get the app</li>
-            <li>Marketing</li>
-            <li>And more</li>
+            <Link to='/construct'>
+              <li>PCS Global Business</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Teach on PCS Global</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Get the app</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Marketing</li>
+            </Link>
+            <Link to='/construct'>
+              <li>And more</li>
+            </Link>
           </ul>
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-2">Social</h3>
           <ul className="list-none">
-            <li>Facebook</li>
-            <li>Twitter</li>
-            <li>Instagram</li>
-            <li>LinkedIn</li>
-            <li>YouTube</li>
-          </ul>
+            <Link to='/construct'>
+              <li>Facebook</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Twitter</li>
+            </Link>
+            <Link to='/construct'>
+              <li>Instagram</li>
+            </Link>
+            <Link to='/construct'>
+              <li>LinkedIn</li>
+            </Link>
+            <Link to='/construct'>
+              <li>YouTube</li>
+            </Link></ul>
         </div>
       </div>
       <div className="border-t border-gray-700 mt-4 pt-4 text-center">

@@ -58,7 +58,7 @@ const EnrollNow = () => {
                                 </a>
                             </div>
                             <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
-                            <Link to='/payment' >
+                            <Link to='/' >
                                 <button className="btn btn-warning">Enroll Now</button>
                             </Link>
                         </div>

@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Navbar3 from "../components/Navbar3";
 import Script from "../TopScript/Script";
 
-const Layout = ({ children, searchTerm, setSearchTerm, setDropdown }) => {
+const Layout = ({ children, searchTerm, setSearchTerm, setDropdown, cartLength, cartGeneralLength }) => {
   return (
     <Fragment>
       <header
@@ -18,6 +18,8 @@ const Layout = ({ children, searchTerm, setSearchTerm, setDropdown }) => {
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
           setDropdown={setDropdown}
+          cartLength={cartLength}
+          cartGeneralLength={cartGeneralLength}
         />
       </header>
       <main>{children}</main>

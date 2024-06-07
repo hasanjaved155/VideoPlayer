@@ -57,7 +57,7 @@ const Dropdown1 = ({
 
     const fetchData = async () => {
         try {
-            const res = await axios.get(`/dashboard/get-dashboard?search=${name}`);
+            const res = await axios.get(`/maincourse/get-dashboard?search=${name}`);
             // const filteredData = res.data.dashboards.filter((dashboard) =>
             //   dashboard.name.toLowerCase().includes(name.toLowerCase())
             // );
@@ -131,7 +131,7 @@ const Dropdown1 = ({
                                     categories?.map((categoryItem) => (
                                         <div key={categoryItem.categoryName}>
                                             <button
-                                                className="px-4 py-2 text-sm text-white hover:bg-slate-950 rounded-full hover:text-white flex"
+                                                className="px-4 py-2 text-sm text-nowrap text-white hover:bg-slate-950 rounded-full hover:text-white flex"
                                                 onClick={() => {
                                                     toggleSubDropdown(categoryItem?.categoryName);
                                                     handlegetsubCategory(categoryItem?._id);
@@ -191,7 +191,7 @@ const Dropdown1 = ({
                                                                         subCategory
                                                                     }>
                                                                     <button
-                                                                        className="px-4 py-2 text-sm hover:bg-slate-950 rounded-full hover:text-white flex"
+                                                                        className="px-4 py-2 text-sm text-nowrap hover:bg-slate-950 rounded-full hover:text-white flex"
                                                                         onClick={() => {
                                                                             typeof subCategory === "object"
                                                                                 ? toggleSubSubDropdown(
@@ -264,7 +264,7 @@ const Dropdown1 = ({
                                                                                             key={
                                                                                                 subSubCategory?.subSubCategoryName
                                                                                             }
-                                                                                            className="px-14 py-2 text-sm hover:bg-slate-950 rounded-full hover:text-white flex"
+                                                                                            className="px-14 py-2 text-sm text-nowrap hover:bg-slate-950 rounded-full hover:text-white flex"
                                                                                             onClick={() => {
                                                                                                 showDropDashboard();
                                                                                                 searchDashboard(

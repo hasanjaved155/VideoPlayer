@@ -26,7 +26,7 @@ const AssignCourse = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("/dashboard/get-dashboard");
+      const response = await axios.get("/maincourse/get-dashboard");
       setCourses(response.data.dashboards);
     } catch (error) {
       toast.error("Error fetching courses:", error);
@@ -41,26 +41,7 @@ const AssignCourse = () => {
     }
   };
 
-  // const handleAssignCourse = async () => {
-  //   if (!selectedUser || !selectedCourse) {
-  //     toast.error("Please select a user and a course.");
-  //     return;
-  //   }
 
-  //   try {
-  //     const res = await axios.post("/course/assignments", {
-  //       userId: selectedUser,
-  //       courseId: selectedCourse,
-  //     });
-  //     if (res && res.data.success) {
-  //       toast.success(res.data.message);
-  //     } else if (!res.data.success) {
-  //       toast.error(res.data.message);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
-  // };
 
   const handleAssignCourse = async () => {
     if (!selectedUser || selectedCourses.length === 0) {
@@ -73,7 +54,7 @@ const AssignCourse = () => {
 
     try {
       const promises = selectedCourses.map(async (courseId) => {
-        const res = await axios.post("/dashboard/assignments", {
+        const res = await axios.post("/maincourse/assignments", {
           userId: selectedUser,
           courseId,
         });
@@ -126,7 +107,7 @@ const AssignCourse = () => {
               onChange={() => handleCheckboxChange(course._id)}
               className="mr-2"
             />
-            <label htmlFor={course._id}>{course.name}</label>
+            <label htmlFor={course._id}>{course.courseName}</label>
           </div>
         ))}
       </div>
