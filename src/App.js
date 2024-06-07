@@ -39,7 +39,7 @@ import EmployeeInformation from "./pcsPages/EmployeeInformation";
 import UserPCSDetails from "./pcsPages/UserPCSDetails";
 import Review from "./Comment/Review";
 import EnrollNow from "./TopScript/EnrollNow";
-// axios.defaults.baseURL = "http://localhost:8000";
+
 // axios.defaults.baseURL = "http://3.212.222.137";
 import Instructor from "./Instructor/Instructor";
 import Payment from "./TopScript/Payment";
@@ -47,7 +47,8 @@ import Construct from "./pages/Construct";
 import CartPage from "./Cart/CartPage";
 import CartGeneralPage from "./Cart/CartGeneral";
 import CourseDescription from "./admindashboard/CourseDescription";
-axios.defaults.baseURL = "https://lms-backend-bcn2.onrender.com";
+// axios.defaults.baseURL = "https://lms-backend-bcn2.onrender.com";
+axios.defaults.baseURL = "http://localhost:8000";
 // axios.defaults.baseURL = "http://107.22.154.213";
 
 const App = () => {
