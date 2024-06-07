@@ -47,8 +47,8 @@ import Construct from "./pages/Construct";
 import CartPage from "./Cart/CartPage";
 import CartGeneralPage from "./Cart/CartGeneral";
 import CourseDescription from "./admindashboard/CourseDescription";
-// axios.defaults.baseURL = "https://lms-backend-bcn2.onrender.com";
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://lms-backend-bcn2.onrender.com";
+// axios.defaults.baseURL = "http://localhost:8000";
 // axios.defaults.baseURL = "http://107.22.154.213";
 
 const App = () => {
