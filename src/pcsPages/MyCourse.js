@@ -13,7 +13,7 @@ const MyCourse = ({ searchTerm }) => {
     const fetchMyCourses = async () => {
       try {
         const response = await axios.get(
-          `/dashboard/${user?._id}/assigned-courses`
+          `/maincourse/${user?._id}/assigned-courses`
         );
         setMyCourses(response.data.course);
         //console.log(myCourses);
@@ -32,7 +32,7 @@ const MyCourse = ({ searchTerm }) => {
             myCourses?.map((item) => {
               return (
                 <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
-                  <Link to={item?.link}>
+                  <Link to={item?.path}>
                     <img
                       className="rounded-t-lg"
                       src={item?.image}
@@ -41,8 +41,8 @@ const MyCourse = ({ searchTerm }) => {
                     />
                     <div className="p-5">
                       <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {item?.name.slice(0, 28)} <br />
-                        {item?.name.slice(28)}
+                        {item?.courseName.slice(0, 28)} <br />
+                        {item?.courseName.slice(28)}
                       </h5>
                     </div>
                   </Link>

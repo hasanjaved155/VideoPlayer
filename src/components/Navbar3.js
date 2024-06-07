@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Disclosure, Menu } from '@headlessui/react';
+import React, { useEffect, useState } from "react";
+// import { Disclosure, Menu } from '@headlessui/react';
 import { ShoppingCartIcon, SearchIcon, MenuIcon } from '@heroicons/react/outline';
 import Dropdown1 from '../dropdown/Dropdown1';
 import { Link, useNavigate } from "react-router-dom";
@@ -7,15 +7,37 @@ import toast from "react-hot-toast";
 import images from "../images/pcs logo.png";
 import Dropdown from "../dropdown/Dropdown";
 
-const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
+const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGeneralLength }) => {
     const navigate = useNavigate();
     const [isActive, setIsActive] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
-    const [showPortal, setShowPortal] = useState(false);
+    // const [showPortal, setShowPortal] = useState(false);
     const [searchInputVisible, setSearchInputVisible] = useState(false);
     const [selectedDropdown, setSelectedDropdown] = useState(null);
     const [selectedSubDropdown, setSelectedSubDropdown] = useState(null);
+    const [place, setPlace] = useState('Search For Anything')
     const [isOpen, setIsOpen] = useState(false);
+
+    const getInitials = (name) => {
+        if (!name) return '';
+
+        const nameArray = name.split(' ');
+        if (nameArray.length === 1) {
+            return nameArray[0].slice(0, 1).toUpperCase();
+        }
+
+        return nameArray[0].slice(0, 1).toUpperCase() + nameArray[1].slice(0, 1).toUpperCase();
+    };
+
+    useEffect(() => {
+        // Check if both token and user exist in local storage
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
+
+        if (!(token && user)) {
+            handlelogout();
+        }
+    }, []);
 
     const toggleAvatar = () => {
         setIsOpen(!isOpen); // Toggle the state between true and false
@@ -30,7 +52,7 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
             : []
         ),
         { name: 'Be an Instructor', to: '/teach', current: false },
-        { name: 'Drop your ideas', to: '/feedback', current: false },
+        // { name: 'Drop your ideas', to: '/feedback', current: false },
         { name: 'Help', to: "/help", current: false },
 
     ];
@@ -40,6 +62,7 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
     }
     const handleCategoryClick = (category) => {
         setIsActive(category);
+        // setShowDropdown(false);
     };
 
     const handlelogout = () => {
@@ -50,17 +73,27 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
     };
 
     const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
+        event.preventDefault();
+        const inputValue = event.target.value || '';
+        navigate('/dashboard');
+        setPlace(inputValue.trim());
+
+        if (inputValue.trim() === '') {
+            setPlace("Search For Anything");
+        }
+
     };
 
     const handleAdmin = () => {
         navigate("/admin");
-        window.location.reload();
+        setIsOpen(!isOpen);
+        // window.location.reload();
     };
 
     const handleUser = () => {
         navigate("/user");
-        window.location.reload();
+        setIsOpen(!isOpen);
+        // window.location.reload();
     };
 
     const showDropDashboard = () => {
@@ -118,7 +151,8 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
                         </button>
                     </div>
                     <div className="flex items-center justify-center sm:justify-start">
-                        <Link to='/' className="flex-shrink-0 items-center">
+                        <Link to='/' className="flex-shrink-0 items-center"
+                            onClick={() => setShowDropdown(false)}>
                             <img
                                 className="h-24 w-24"
                                 src={images}
@@ -137,25 +171,38 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
                                     toggleSubDropdown={toggleSubDropdown}
                                     toggleSubSubDropdown={toggleSubSubDropdown}
                                 />
-                                <form className="relative h-9 w-80 items-center flex rounded-full bg-slate-300 p-1 text-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                <form onSubmit={handleSearch} className="relative h-9 w-80 items-center flex rounded-full bg-slate-300 p-1 text-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                     <SearchIcon className="h-5 mx-2" />
                                     <input
                                         type="text"
-                                        placeholder="Search For Anything"
+                                        placeholder={place}
                                         className="bg-transparent text-gray-800 text-sm outline-none"
                                         value={searchTerm}
-                                        onChange={handleSearch}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                        onClick={() => setShowDropdown(false)}
+                                    // onSubmit={handleSearch}
                                     />
                                 </form>
                                 <Link to='/dashboard' className={`px-3 py-2 text-sm font-medium ${false ? 'text-gray-900' : 'text-gray-800 hover:text-white hover:bg-gray-700 rounded-md'
-                                    }`}>All Course</Link>
+                                    }`}
+                                    onClick={() => {
+                                        handleCategoryClick("dashboard");
+                                        setShowDropdown(false);
+                                        setSearchTerm('')
+                                    }
+                                    }
+                                >All Course</Link>
                                 {navigation.map((item) => (
                                     <Link
                                         key={item.name}
                                         to={item.to}
                                         className={`px-3 py-2 text-sm md:hidden lg:block font-medium ${item.current ? 'text-gray-900' : 'text-gray-800 hover:text-white hover:bg-gray-700 rounded-md'
                                             }`}
-                                        onClick={() => handleCategoryClick(item.name)}
+                                        onClick={() => {
+                                            handleCategoryClick(item.name);
+                                            setShowDropdown(false);
+                                        }
+                                        }
                                     >
                                         {item.name}
                                     </Link>
@@ -163,31 +210,53 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex items-center justify-end space-x-6 sm:ml-6 sm:space-x-4">
-                        <button
+                    <div className="flex items-center justify-end space-x-6 sm:ml-6 sm:space-x-4"
+                        onClick={() => setShowDropdown(false)}>
+
+                        {user && !user?.employeeId ? (<div className="flex items-center"><Link to='/cartgeneral'
                             type="button"
-                            className="p-1 rounded-full text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:text-green-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-700"
+                            className="p-2 rounded-full  text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:text-green-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-700"
                         >
+
                             <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                        </button>
+                        </Link> <span className="bg-red-600 border-red-800 h-6 w-6 ml-[-5px] font-semibold text-white rounded-full">
+                                {cartGeneralLength}
+                            </span></div>
+
+                        ) : (<div className="flex items-center"><Link to='/cart'
+                            type="button"
+                            className="p-2 rounded-full  text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:text-green-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-green-700"
+                        >
+
+                            <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                        </Link> <span className="bg-red-600 border-red-800 h-6 w-6 ml-[-5px] font-semibold text-white rounded-full">
+                                {cartLength}
+                            </span></div>)}
+
+
                         {!localStorage.getItem("token") ? (
                             <div className="flex space-x-4">
                                 <Link
                                     to="/authSignin"
-                                    className={`px-3 py-2 text-sm hidden  md:block lg:block font-bold bg-white border border-black rounded hover:bg-gray-200 text-gray-900`}
-                                    onClick={() => handleCategoryClick("signin")}
+                                    className={`px-3 py-2 text-sm hidden  md:block lg:block font-bold border border-black rounded hover:bg-gray-200 text-gray-900 ${isActive === 'signin' ? 'bg-slate-100' : ''}`}
+                                    onClick={() => {
+                                        handleCategoryClick("signin");
+                                        setShowDropdown(false);
+                                    }}
                                 >
                                     Sign In
                                 </Link>
                                 <Link
                                     to="/authSignup"
                                     className={`px-3 py-2 text-sm hidden md:block lg:block font-bold bg-black text-white rounded hover:bg-gray-800`}
+                                    onClick={() => setShowDropdown(false)}
                                 >
                                     Sign Up
                                 </Link>
                             </div>
                         ) : (
-                            <div className="flex items-center space-x-6 rtl:space-x-reverse">
+                            <div className="flex items-center space-x-6 rtl:space-x-reverse"
+                            >
                                 <div className="dropdown dropdown-end">
                                     <div
                                         tabIndex={0}
@@ -198,8 +267,8 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
                                         <div className="avatar placeholder">
                                             <div className="bg-neutral text-neutral-content rounded-full w-10">
                                                 <span className="text-xl">
-                                                    {(user?.name && user.name.slice(0, 1)) ||
-                                                        (user?.firstName && user.firstName.slice(0, 1))}
+                                                    {(user?.name && getInitials(user?.name)) ||
+                                                        (user?.firstName && user.firstName.slice(0, 1) + user.lastName.slice(0, 1))}
                                                 </span>
                                             </div>
                                         </div>
@@ -261,55 +330,66 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown }) => {
                 </div>
             </div>
 
-            {isMenuOpen && (
-                <div className="md:hidden">
-                    <div className="space-y-1 px-2 pb-3 pt-2">
-                        {!localStorage.getItem('token') && (
-                            <div className="flex justify-around">
-                                <Link
-                                    to="/authSignin"
-                                    className={`border border-black h-10 rounded flex items-center justify-center text-sm font-bold w-20 hover:bg-[#f5f5f5] text-gray-900 ${isActive === 'signin' ? 'bg-slate-100' : ''
-                                        }`}
-                                    onClick={() => handleCategoryClick('signin')}
-                                >
-                                    Sign In
-                                </Link>
-                                <Link
-                                    to="/authSignup"
-                                    className="border bg-black text-white rounded flex items-center justify-center border-black h-10 text-sm font-bold w-20"
-                                >
-                                    Sign Up
-                                </Link>
+            {
+                isMenuOpen && (
+                    <div className="md:hidden">
+                        <div className="space-y-1 px-2 pb-3 pt-2">
+                            {!localStorage.getItem('token') && (
+                                <div className="flex justify-around">
+                                    <Link
+                                        to="/authSignin"
+                                        className={`border border-black h-10 rounded flex items-center justify-center text-sm font-bold w-20 hover:bg-[#f5f5f5] text-gray-900 ${isActive === 'signin' ? 'bg-slate-100' : ''
+                                            }`}
+                                        onClick={() => {
+                                            handleCategoryClick('signin');
+                                            setShowDropdown(false);
+                                        }}
+                                    >
+                                        Sign In
+                                    </Link>
+                                    <Link
+                                        to="/authSignup"
+                                        className="border bg-black text-white rounded flex items-center justify-center border-black h-10 text-sm font-bold w-20"
+                                        onClick={() => setShowDropdown(false)}
+                                    >
+                                        Sign Up
+                                    </Link>
+                                </div>
+                            )}
+                            <div onClick={() => handleCategoryClick('dropdown')}>
+                                <Dropdown1
+                                    setDropdown={setDropdown}
+                                    showDropDashboard={showDropDashboard}
+                                    showDropdown={showDropdown}
+                                    selectedDropdown={selectedDropdown}
+                                    selectedSubDropdown={selectedSubDropdown}
+                                    toggleDropdown={toggleDropdown}
+                                    toggleSubDropdown={toggleSubDropdown}
+                                    toggleSubSubDropdown={toggleSubSubDropdown}
+                                />
                             </div>
-                        )}
-                        <div onClick={() => handleCategoryClick('dropdown')}>
-                            <Dropdown1
-                                setDropdown={setDropdown}
-                                showDropDashboard={showDropDashboard}
-                                showDropdown={showDropdown}
-                                selectedDropdown={selectedDropdown}
-                                selectedSubDropdown={selectedSubDropdown}
-                                toggleDropdown={toggleDropdown}
-                                toggleSubDropdown={toggleSubDropdown}
-                                toggleSubSubDropdown={toggleSubSubDropdown}
-                            />
+                            <Link to='/dashboard' className={`px-3 py-2 text-sm font-medium ${false ? 'text-gray-900' : 'text-gray-800 hover:text-white hover:bg-gray-700 block rounded-md px-3 py-2 text-base font-medium'
+                                }`}
+                                onClick={() => setShowDropdown(false)}
+                            >All Course</Link>
+                            {navigation.map((item) => (
+                                <Link
+                                    key={item.name}
+                                    to={item.to}
+                                    className={`px-3 py-2 text-sm font-medium ${item.current ? 'text-gray-900' : 'text-gray-800 hover:text-white hover:bg-gray-700 block rounded-md px-3 py-2 text-base font-medium'
+                                        }`}
+                                    onClick={() => {
+                                        handleCategoryClick(item.name);
+                                        setShowDropdown(false)
+                                    }}
+                                >
+                                    {item.name}
+                                </Link>
+                            ))}
                         </div>
-                        <Link to='/dashboard' className={`px-3 py-2 text-sm font-medium ${false ? 'text-gray-900' : 'text-gray-800 hover:text-white hover:bg-gray-700 block rounded-md px-3 py-2 text-base font-medium'
-                            }`}>All Course</Link>
-                        {navigation.map((item) => (
-                            <Link
-                                key={item.name}
-                                to={item.to}
-                                className={`px-3 py-2 text-sm font-medium ${item.current ? 'text-gray-900' : 'text-gray-800 hover:text-white hover:bg-gray-700 block rounded-md px-3 py-2 text-base font-medium'
-                                    }`}
-                                onClick={() => handleCategoryClick(item.name)}
-                            >
-                                {item.name}
-                            </Link>
-                        ))}
                     </div>
-                </div>
-            )}
+                )
+            }
         </nav>
     )
 }

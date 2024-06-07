@@ -23,7 +23,7 @@ export default Project;
 
 const Container = styled.div`
     height: 10rem;
-    background-color: #4e5156;
+    background-color: #dbdbdb;
     margin: 0 0.5rem;
     padding: 0.3rem;
     border-radius: 5px;

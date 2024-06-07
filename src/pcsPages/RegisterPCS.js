@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 const RegisterPCS = ({ setUserId }) => {
   const [firstName, setFirstName] = useState("");
@@ -91,19 +91,6 @@ const RegisterPCS = ({ setUserId }) => {
     }
   };
 
-
-  const inputStyles = () => ({
-    border: '1px solid transparent',
-    transition: 'border-color 0.3s ease',
-    padding: '8px',
-    outline: 'none',
-    '&:focus': {
-      borderColor: 'blue',
-    },
-  });
-
-  const InputStyled = styled.input(inputStyles());
-
   return (
     <div className="flex justify-center items-center bg-white md:ml-72 md:h-[550px]">
       <div className="container mx-auto my-4 px-4 lg:px-20">
@@ -119,7 +106,7 @@ const RegisterPCS = ({ setUserId }) => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   First Name
                 </label>
-                <InputStyled
+                <input
                   className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="text"
                   name="firstName"
@@ -132,8 +119,8 @@ const RegisterPCS = ({ setUserId }) => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Last Name
                 </label>
-                <InputStyled
-                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
+                <input
+                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="text"
                   name="lastName"
                   placeholder="Last Name*"
@@ -145,8 +132,8 @@ const RegisterPCS = ({ setUserId }) => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Employee ID
                 </label>
-                <InputStyled
-                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
+                <input
+                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="number"
                   name="employeeId"
                   placeholder="Enter Employee ID*"
@@ -158,8 +145,8 @@ const RegisterPCS = ({ setUserId }) => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Date Of Joining
                 </label>
-                <InputStyled
-                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
+                <input
+                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="date"
                   name="dateOfJoining"
                   placeholder="Date Of Joining*"
@@ -172,8 +159,8 @@ const RegisterPCS = ({ setUserId }) => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Official Email ID
                 </label>
-                <InputStyled
-                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
+                <input
+                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="email"
                   name="email"
                   placeholder="Enter Official Email ID*"
@@ -189,8 +176,8 @@ const RegisterPCS = ({ setUserId }) => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Phone
                 </label>
-                <InputStyled
-                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
+                <input
+                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="number"
                   name="phoneNo"
                   placeholder="Enter Phone No*"
@@ -202,8 +189,8 @@ const RegisterPCS = ({ setUserId }) => {
                 <label className="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">
                   Password
                 </label>
-                <InputStyled
-                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
+                <input
+                  className="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:border-blue-500 border-2 focus:shadow-outline"
                   type="password"
                   name="password"
                   placeholder="Enter Password*"

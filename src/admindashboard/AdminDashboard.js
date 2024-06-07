@@ -10,6 +10,7 @@ import CreateCategory from "./CreateCategory";
 import CreateSubCategory from "./CreateSubCategory";
 import CreateSubSubCategory from "./CreateSubSubCategory";
 import AddFestival from "../TopScript/AddFestival";
+import CreateCourse from "./CreateCourse";
 
 const AdminDashboard = () => {
   const [select, setSelect] = useState("admin");
@@ -36,6 +37,11 @@ const AdminDashboard = () => {
               className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md mb-3 hover:bg-blue-600"
               onClick={(e) => setSelect("dashboard")}>
               <h4>Create Dashboard</h4>
+            </div>
+            <div
+              className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md mb-3 hover:bg-blue-600"
+              onClick={(e) => setSelect("course")}>
+              <h4>Create Course</h4>
             </div>
             {/* <div
               className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md mb-3 hover:bg-blue-600"
@@ -84,6 +90,7 @@ const AdminDashboard = () => {
             {select === "admin" && <AdminDetails />}
             {select === "assign" && <AssignCourse />}
             {select === "dashboard" && <CreateDashboard />}
+            {select === "course" && <CreateCourse />}
             {/* {select === "mycourse" && <CreateMyCourse />} */}
             {select === "playlist" && <CreatePlaylist />}
             {select === "users" && <ShowAllUsers />}

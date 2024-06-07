@@ -1,17 +1,11 @@
 import React, { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const DropDashboard = ({ displaydown }) => {
-  //const [dashboards, setDashboards] = useState([]);
-  // const allData = useSelector((store) => store.dashboardSlice.allData);
+const DropDashboard = ({ displaydown, cartLength, setCartLength, cartGeneralLength, setCartGeneralLength, setItem }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
-
-  console.log(displaydown);
-  // useEffect(() => {
-  //   setDashboards(dropdownn);
-  // }, [dropdownn]);
 
   const handleMouseEnter = (item) => {
     setHoveredItem(item);
@@ -21,9 +15,35 @@ const DropDashboard = ({ displaydown }) => {
     setHoveredItem(null);
   };
 
-  const handleAddToCart = (item) => {
-    // Implement your logic to add item to cart
-    console.log("Added to cart:", item);
+  const handleAddToCart = async (item) => {
+    if (user && !user.employeeId) {
+      try {
+        const res = await axios.post(`/cartgeneral/create-cart/${user._id}`, { name: item.courseName, link: item.path, image: item.image });
+        if (res && res.data.success) {
+          toast.success(res.data.message);
+          setCartGeneralLength(cartGeneralLength + 1)
+
+        } else if (!res.data.success) {
+          toast.error(res.data.message);
+        }
+      } catch (error) {
+        toast.error("Please login to add");
+      }
+    } else {
+      try {
+        const res = await axios.post(`/cart/create-cart/${user._id}`, { name: item.courseName, link: item.path, image: item.image });
+        if (res && res.data.success) {
+          toast.success(res.data.message);
+          setCartLength(cartLength + 1)
+
+        } else if (!res.data.success) {
+          toast.error(res.data.message);
+        }
+      } catch (error) {
+        toast.error("Please login to add");
+      }
+    }
+
   };
 
   const handleLike = (item) => {
@@ -54,7 +74,7 @@ const DropDashboard = ({ displaydown }) => {
                 className="relative"
                 onMouseEnter={() => handleMouseEnter(item)}
                 onMouseLeave={handleMouseLeave}>
-                <Link to={item?.link}>
+                <Link to='/description' onClick={() => setItem(item)}>
                   <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:-translate-y-2 duration-200 hover:shadow-[#6260607a] hover:shadow-xl">
                     <img
                       className="rounded-t-lg"
@@ -64,8 +84,8 @@ const DropDashboard = ({ displaydown }) => {
                     />
                     <div className="p-5">
                       <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {item?.name.slice(0, 28)} <br />
-                        {item?.name.slice(28)}
+                        {item?.courseName.slice(0, 28)} <br />
+                        {item?.courseName.slice(28)}
                       </h5>
                     </div>
                   </div>
