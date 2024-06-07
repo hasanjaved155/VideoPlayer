@@ -22,6 +22,8 @@ const Card = (props) => {
 
   // AIzaSyBMPqrF - TWzQnaE0DaSZ2y5SR4Ns - Bbb2E
 
+  //AIzaSyD_7CuoqcIIOqeabeG3c27W3yfzwRxmHVs
+
   const handleVideoClick = () => {
 
 
@@ -45,7 +47,7 @@ const Card = (props) => {
   const course = async () => {
     try {
       const res = await axios.get(
-        `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${props?.listId}&part=snippet&maxResults=50&key=AIzaSyD_7CuoqcIIOqeabeG3c27W3yfzwRxmHVs`
+        `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${props?.listId}&part=snippet&maxResults=50&key=AIzaSyBMPqrF - TWzQnaE0DaSZ2y5SR4Ns - Bbb2E`
         // `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${props.listId}&key=AIzaSyDbYK0Ag14Hq2En0PhG32o4ksktsuEgBLk`
       );
 
@@ -62,7 +64,7 @@ const Card = (props) => {
       const videosWithViewCount = await Promise.all(
         playlistData?.videos?.map(async video => {
           const videoStatsResponse = await axios.get(
-            `https://www.googleapis.com/youtube/v3/videos?id=${video?.videoId}&part=statistics&key=AIzaSyD_7CuoqcIIOqeabeG3c27W3yfzwRxmHVs`
+            `https://www.googleapis.com/youtube/v3/videos?id=${video?.videoId}&part=statistics&key=AIzaSyBMPqrF - TWzQnaE0DaSZ2y5SR4Ns - Bbb2E`
           );
           const firstItem = videoStatsResponse?.data?.items[0];
           if (firstItem && firstItem?.statistics && firstItem?.statistics?.viewCount) {
@@ -97,7 +99,7 @@ const Card = (props) => {
     try {
       const res = await axios.get(
         // `https://www.googleapis.com/youtube/v3/videos?id=${video}&key=AIzaSyDbYK0Ag14Hq2En0PhG32o4ksktsuEgBLk&part=snippet, contentDetails, statistics, status`
-        `https://www.googleapis.com/youtube/v3/playlists?id=${props?.listId}&part=snippet&key=AIzaSyD_7CuoqcIIOqeabeG3c27W3yfzwRxmHVs`
+        `https://www.googleapis.com/youtube/v3/playlists?id=${props?.listId}&part=snippet&key=AIzaSyBMPqrF - TWzQnaE0DaSZ2y5SR4Ns - Bbb2E`
       );
       const json = await res?.data;
       // console.log(json)
