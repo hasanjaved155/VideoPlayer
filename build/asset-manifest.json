@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.dff69bfc.css",
-    "main.js": "/static/js/main.0ca9b107.js",
+    "main.css": "/static/css/main.153f7211.css",
+    "main.js": "/static/js/main.fc5b732a.js",
     "static/media/front-view-stacked-books-graduation-cap-ladders-education-day.jpg": "/static/media/front-view-stacked-books-graduation-cap-ladders-education-day.7a2107ee060c70fddafd.jpg",
     "static/media/gif.gif": "/static/media/gif.a0b339e35ccfe1467cea.gif",
+    "static/media/samarthnaik.jpg": "/static/media/samarthnaik.580f8d53f059a08cbe22.jpg",
     "static/media/pcs logo.png": "/static/media/pcs logo.4790cc5f49bd9caa4a6a.png",
     "static/media/alok_sir.jpg": "/static/media/alok_sir.1860d0d73d32bd1ddb3b.jpg",
     "static/media/vecteezy_youtube-logo-png-youtube-icon-transparent_18930572.png": "/static/media/vecteezy_youtube-logo-png-youtube-icon-transparent_18930572.3a12657e930cc8373a31.png",
     "static/media/User.png": "/static/media/User.31b85cf92ca19564d432.png",
     "index.html": "/index.html",
-    "main.dff69bfc.css.map": "/static/css/main.dff69bfc.css.map",
-    "main.0ca9b107.js.map": "/static/js/main.0ca9b107.js.map"
+    "main.153f7211.css.map": "/static/css/main.153f7211.css.map",
+    "main.fc5b732a.js.map": "/static/js/main.fc5b732a.js.map"
   },
   "entrypoints": [
-    "static/css/main.dff69bfc.css",
-    "static/js/main.0ca9b107.js"
+    "static/css/main.153f7211.css",
+    "static/js/main.fc5b732a.js"
   ]
 }
