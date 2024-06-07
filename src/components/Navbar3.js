@@ -35,7 +35,8 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGener
         const user = localStorage.getItem('user');
 
         if (!(token && user)) {
-            handlelogout();
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
         }
     }, []);
 
