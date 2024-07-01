@@ -18,7 +18,7 @@ const Review = ({ id, setRie }) => {
             return nameArray[0].slice(0, 1).toUpperCase();
         }
 
-        return nameArray[0].slice(0, 1).toUpperCase() + nameArray[1].slice(0, 1).toUpperCase();
+        return nameArray[0]?.slice(0, 1).toUpperCase() + nameArray[1]?.slice(0, 1).toUpperCase();
     };
 
 
@@ -35,11 +35,11 @@ const Review = ({ id, setRie }) => {
             e.preventDefault();
             // Make a POST request to your backend endpoint
             const res = await axios.post(`/review/${id}/reviews`, {
-                username: user.name || user.firstName + " " + user.lastName,
+                username: user?.name || user?.firstName + " " + user?.lastName,
                 rating: rating,
                 comment: comment
             });
-            if (res && res.data.success) {
+            if (res && res?.data?.success) {
                 toast.success(res.data.message);
                 // Refresh reviews after successful submission
                 fetchReviews();
@@ -57,9 +57,9 @@ const Review = ({ id, setRie }) => {
     const fetchReviews = async () => {
         try {
             const res = await axios.get(`/review/${id}/reviews`);
-            if (res && res.data.success) {
-                setReviews(res.data.reviews);
-                setRie(res.data.averageRating);
+            if (res && res?.data?.success) {
+                setReviews(res?.data?.reviews);
+                setRie(res?.data?.averageRating);
             }
         } catch (error) {
             // Handle errors if any
@@ -153,7 +153,7 @@ const Review = ({ id, setRie }) => {
             </div>
             {/* Display reviews */}
             <div className="carousel w-[70%]">
-                {reviews.map((review, index) => (
+                {reviews?.map((review, index) => (
                     <div>
                         <div className="bg-base-200 mr-5 h-56 w-80 shadow-xl rounded-lg p-6">
 
@@ -165,13 +165,13 @@ const Review = ({ id, setRie }) => {
                                         {getInitials(review?.username)}
                                     </div>
                                 </div>
-                                <h2 className="card-title">{review.username}</h2>
+                                <h2 className="card-title">{review?.username}</h2>
                             </div>
 
                             <div key={index} className="card-body flex items-start">
 
-                                <h4 className="text-base text-gray-600">{textRating(review?.rating)} {renderStars(review.rating)}</h4>
-                                <p>{review.comment}</p>
+                                <h4 className="text-base text-gray-600">{textRating(review?.rating)} {renderStars(review?.rating)}</h4>
+                                <p>{review?.comment}</p>
 
                             </div>
 

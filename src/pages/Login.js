@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { getUserConfiguration } from "../store/userSlice";
 import { toast } from "react-hot-toast";
 
-const Login = () => {
+const Login = ({ setInstructor }) => {
   // const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
@@ -16,13 +16,16 @@ const Login = () => {
   // form function
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
+
       const res = await axios.post("/auth/login", { email, password });
-      if (res && res.data.success) {
-        toast.success(res.data.message);
-        localStorage.setItem("token", JSON.stringify(res.data.token));
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+      if (res && res?.data?.success) {
+        toast.success(res?.data?.message);
+        localStorage.setItem("token", JSON.stringify(res?.data?.token));
+        localStorage.setItem("user", JSON.stringify(res?.data?.user));
         navigate("/dashboard");
+        checkInstructorStatus(res?.data?.user?.email);
       } else if (!res.data.success) {
         toast.error(res.data.message);
       }
@@ -30,6 +33,19 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+  const checkInstructorStatus = async (userEmail) => {
+    try {
+      const res = await axios.get(`/teach/checkInstructor/${userEmail}`);
+      if (res?.data && res?.data?.success) {
+        setInstructor(true);
+      } else {
+        setInstructor(false);
+      }
+    } catch (error) {
+      toast.error('Fill the form of instructor');
+    }
+  };
+
   return (
     <div>
       <section className="mt-4 md:ml-10 mr-1 dark:bg-gray-900 ">

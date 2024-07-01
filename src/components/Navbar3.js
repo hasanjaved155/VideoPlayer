@@ -6,8 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import images from "../images/pcs logo.png";
 import Dropdown from "../dropdown/Dropdown";
+import axios from "axios";
 
-const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGeneralLength }) => {
+const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGeneralLength, isInstructor, setInstructor }) => {
     const navigate = useNavigate();
     const [isActive, setIsActive] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
@@ -18,6 +19,23 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGener
     const [place, setPlace] = useState('Search For Anything')
     const [isOpen, setIsOpen] = useState(false);
 
+    const user = JSON.parse(localStorage.getItem('user'));
+    const checkInstructorStatus = async () => {
+        try {
+            const res = await axios.get(`/teach/checkInstructor/${user?.email}`);
+            if (res?.data && res?.data?.success) {
+                setInstructor(true);
+
+            } else {
+                setInstructor(false);
+
+            }
+        } catch (error) {
+            // toast.error('Fill the form of instructor');
+        }
+    };
+
+
     const getInitials = (name) => {
         if (!name) return '';
 
@@ -27,6 +45,7 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGener
         }
 
         return nameArray[0].slice(0, 1).toUpperCase() + nameArray[1].slice(0, 1).toUpperCase();
+        0
     };
 
     useEffect(() => {
@@ -38,13 +57,19 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGener
             localStorage.removeItem("token");
             localStorage.removeItem("user");
         }
+
+        checkInstructorStatus();
+
     }, []);
+
+
+
 
     const toggleAvatar = () => {
         setIsOpen(!isOpen); // Toggle the state between true and false
     };
 
-    const user = JSON.parse(localStorage.getItem("user"));
+
 
     const navigation = [
         // { name: 'All Courses', to: '/dashboard', current: false },
@@ -52,7 +77,7 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGener
             ? [{ name: 'My Courses', to: '/my-course', current: false }]
             : []
         ),
-        { name: 'Be an Instructor', to: '/teach', current: false },
+        { name: isInstructor ? "Instructor" : 'Be an Instructor', to: '/teach', current: false },
         // { name: 'Drop your ideas', to: '/feedback', current: false },
         { name: 'Help', to: "/help", current: false },
 
@@ -69,6 +94,7 @@ const Navbar3 = ({ searchTerm, setSearchTerm, setDropdown, cartLength, cartGener
     const handlelogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        setInstructor(false)
         toast.success("Logout Successfully");
         navigate("/authSignin");
     };

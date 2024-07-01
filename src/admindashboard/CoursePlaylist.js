@@ -11,7 +11,7 @@ const YouTubePlaylist = ({ listId }) => {
         const fetchPlaylist = async () => {
             try {
                 const res = await axios.get(
-                    `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${listId}&part=snippet&maxResults=50&key=AIzaSyBMPqrF - TWzQnaE0DaSZ2y5SR4Ns - Bbb2E`
+                    `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${listId}&part=snippet&maxResults=50&key=AIzaSyD_7CuoqcIIOqeabeG3c27W3yfzwRxmHVs`
                 );
 
                 setVideos(res.data.items);
