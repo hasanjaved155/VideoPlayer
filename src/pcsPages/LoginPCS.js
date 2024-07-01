@@ -5,10 +5,9 @@ import toast from "react-hot-toast";
 // import { useDispatch } from "react-redux";
 // import { getUserConfiguration } from "../store/userSlice";
 
-const LoginPCS = () => {
+const LoginPCS = ({ setInstructor }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   // const dispatch = useDispatch();
 
@@ -23,11 +22,27 @@ const LoginPCS = () => {
         localStorage.setItem("token", JSON.stringify(res.data.token));
         localStorage.setItem("user", JSON.stringify(res.data.user));
         navigate("/dashboard");
+        checkInstructorStatus(res?.data?.user?.email);
       } else {
         toast.error(res.data.message);
       }
     } catch (error) {
       toast.error(error.message);
+    }
+  };
+
+  const checkInstructorStatus = async (userEmail) => {
+    try {
+      const res = await axios.get(`/teach/checkInstructor/${userEmail}`);
+      if (res?.data && res?.data?.success) {
+        setInstructor(true);
+
+      } else {
+        setInstructor(false);
+
+      }
+    } catch (error) {
+      toast.error('Fill the form of instructor');
     }
   };
 

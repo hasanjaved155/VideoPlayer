@@ -7,7 +7,7 @@ const TotalCount = ({ listId }) => {
     const viewcount = async () => {
         try {
             const res = await axios.get(
-                `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${listId}&part=snippet&maxResults=50&key=AIzaSyBMPqrF - TWzQnaE0DaSZ2y5SR4Ns - Bbb2E`
+                `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${listId}&part=snippet&maxResults=50&key=AIzaSyD_7CuoqcIIOqeabeG3c27W3yfzwRxmHVs`
                 // `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${props.listId}&key=AIzaSyDbYK0Ag14Hq2En0PhG32o4ksktsuEgBLk`
             );
 
@@ -23,7 +23,7 @@ const TotalCount = ({ listId }) => {
             const videosWithViewCount = await Promise.all(
                 playlistData?.videos?.map(async video => {
                     const videoStatsResponse = await axios.get(
-                        `https://www.googleapis.com/youtube/v3/videos?id=${video.videoId}&part=statistics&key=AIzaSyBMPqrF - TWzQnaE0DaSZ2y5SR4Ns - Bbb2E`
+                        `https://www.googleapis.com/youtube/v3/videos?id=${video.videoId}&part=statistics&key=AIzaSyD_7CuoqcIIOqeabeG3c27W3yfzwRxmHVs`
                     );
                     const firstItem = videoStatsResponse.data.items[0];
                     if (firstItem && firstItem?.statistics && firstItem?.statistics?.viewCount) {

@@ -17,7 +17,7 @@ const SignUpComponent = () => {
 
         <div className="md:px-20  md:gap-8 bg-slate-100 flex justify-center rounded-2xl"
         >
-          <h1 className="text-2xl font-bold absolute py-4">SIGN UP AS</h1>
+          <h1 className="text-2xl font-bold absolute py-4">Sign up and start learning</h1>
           <Link to="/register-pcs" className="col-6 flex items-center hover:text-lg">
             <div
               className="hover:bg-blue-100 py-3 my-1 clickable-item px-2 mx-1 hover:bg-opacity-60 hover:border-blue-500 rounded-lg justify-between"

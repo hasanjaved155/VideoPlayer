@@ -184,7 +184,7 @@ const CourseDescription = ({ item, setSearchTerm }) => {
                                                     </span>
                                                 ) : (
                                                     savedItem?.role[0]?.rolename === "Employee" ? (
-                                                        <Link to='/dashboard'>
+                                                        <Link to={savedItem?.path}>
                                                             <span className="relative group-hover:text-white">Buy This Course</span>
                                                         </Link>
                                                     ) : (

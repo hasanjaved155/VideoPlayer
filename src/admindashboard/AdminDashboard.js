@@ -11,6 +11,7 @@ import CreateSubCategory from "./CreateSubCategory";
 import CreateSubSubCategory from "./CreateSubSubCategory";
 import AddFestival from "../TopScript/AddFestival";
 import CreateCourse from "./CreateCourse";
+import HelpDesk from "../help/HelpDesk";
 
 const AdminDashboard = () => {
   const [select, setSelect] = useState("admin");
@@ -33,11 +34,11 @@ const AdminDashboard = () => {
               onClick={(e) => setSelect("assign")}>
               <h4>Assign Course</h4>
             </div>
-            <div
+            {/* <div
               className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md mb-3 hover:bg-blue-600"
               onClick={(e) => setSelect("dashboard")}>
               <h4>Create Dashboard</h4>
-            </div>
+            </div> */}
             <div
               className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md mb-3 hover:bg-blue-600"
               onClick={(e) => setSelect("course")}>
@@ -48,11 +49,11 @@ const AdminDashboard = () => {
               onClick={(e) => setSelect("mycourse")}>
               <h4>Create Course</h4>
             </div> */}
-            <div
+            {/* <div
               className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md mb-3 hover:bg-blue-600"
               onClick={(e) => setSelect("playlist")}>
               <h4> Create Playlist</h4>
-            </div>
+            </div> */}
             <div
               className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md mb-3 hover:bg-blue-600"
               onClick={(e) => setSelect("users")}>
@@ -79,9 +80,14 @@ const AdminDashboard = () => {
               <div> Create SubSubCategory</div>
             </div>
             <div
-              className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="block cursor-pointer py-2 px-4 mb-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               onClick={(e) => setSelect("festival")}>
               <div>Add Festival</div>
+            </div>
+            <div
+              className="block cursor-pointer py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={(e) => setSelect("help")}>
+              <div>Help-Desk</div>
             </div>
           </div>
         </div>
@@ -89,16 +95,17 @@ const AdminDashboard = () => {
           <div className="mx-auto">
             {select === "admin" && <AdminDetails />}
             {select === "assign" && <AssignCourse />}
-            {select === "dashboard" && <CreateDashboard />}
+            {/* {select === "dashboard" && <CreateDashboard />} */}
             {select === "course" && <CreateCourse />}
             {/* {select === "mycourse" && <CreateMyCourse />} */}
-            {select === "playlist" && <CreatePlaylist />}
+            {/* {select === "playlist" && <CreatePlaylist />} */}
             {select === "users" && <ShowAllUsers />}
             {select === "users-pcs" && <AllUsersPCS />}
             {select === "categories" && <CreateCategory />}
             {select === "subcategories" && <CreateSubCategory />}
             {select === "subsubcategories" && <CreateSubSubCategory />}
             {select === "festival" && <AddFestival />}
+            {select === "help" && <HelpDesk />}
           </div>
         </div>
       </div>

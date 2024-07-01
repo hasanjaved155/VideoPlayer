@@ -47,8 +47,9 @@ import Construct from "./pages/Construct";
 import CartPage from "./Cart/CartPage";
 import CartGeneralPage from "./Cart/CartGeneral";
 import CourseDescription from "./admindashboard/CourseDescription";
-axios.defaults.baseURL = "https://lms-backend-bcn2.onrender.com";
-// axios.defaults.baseURL = "http://localhost:8000";
+import ProtectedInstructor from './Instructor/ProtectedInstructor';
+import TeachSignup from './Instructor/TeachSignup';
+axios.defaults.baseURL = "http://localhost:8000";
 // axios.defaults.baseURL = "http://107.22.154.213";
 
 const App = () => {
@@ -61,8 +62,9 @@ const App = () => {
   const [rie, setRie] = useState(0);
   const [item, setItem] = useState("");
 
+  const [isInstructor, setInstructor] = useState(false);
+  const user = JSON.parse(localStorage.getItem('user'));
 
-  const user = JSON.parse(localStorage.getItem("user"));
 
   const fetchCartDetails = async () => {
     try {
@@ -112,7 +114,9 @@ const App = () => {
           setSearchTerm={setSearchTerm}
           setDropdown={setDropdown}
           cartLength={cartLength}
-          cartGeneralLength={cartGeneralLength}>
+          cartGeneralLength={cartGeneralLength}
+          isInstructor={isInstructor}
+          setInstructor={setInstructor}>
           <Routes>
             <Route path="/construct" element={<Construct />} />
             <Route path="/enrollnow" element={<EnrollNow />} />
@@ -171,20 +175,25 @@ const App = () => {
               })}
 
               <Route path="/payment" element={<Payment />} />
-              <Route path="/teach" element={<Instructor />} />
+
 
             </Route>
 
+            <Route element={<ProtectedInstructor />}>
+              <Route path="/teach" element={<Instructor />} />
+            </Route>
+
             <Route path="/authSignup" element={<SignUpComponent />} />
+            <Route path="/teachsignup" element={<TeachSignup />} />
             <Route path="/authSignin" element={<SignInComponent />} />
             <Route path="/register-pcs" element={<RegisterPCS setUserId={setUserId} />} />
             {userId && <Route path="/employee" element={<EmployeeInformation userId={userId} />} />}
             {/* <Route path="/employee" element={<EmployeeInformation userId={userId} />} /> */}
 
-            <Route path="/login-pcs" element={<LoginPCS />} />
+            <Route path="/login-pcs" element={<LoginPCS setInstructor={setInstructor} />} />
             {/* <Route path="/user/:_id" element={<UserPCSDetails />} /> */}
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login setInstructor={setInstructor} />} />
             <Route path="/forgot-password" element={<Forgetpassword />} />
             <Route
               path="/forgot-password-pcs"
@@ -200,7 +209,7 @@ const App = () => {
             />
             <Route path="/help" element={<Help />} />
             <Route path="/feedback" element={<Review />} />
-            <Route path="*" element={<PageNotFound />} />
+            {/* <Route path="*" element={<PageNotFound />} /> */}
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -4,14 +4,12 @@ const UserDetails = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div style={{ marginLeft: "400px" }}>
-      <div
-        className="card card-side bg-base-100 shadow-xl ml-24"
-        style={{ height: "390px" }}>
+    <div className="md:ml-[20px] w-[25rem] md:w-[55rem] -ml-[3rem]">
+      <div className="md:card md:card-side bg-base-100 shadow-xl ml-20 md:h-[390px]">
         <figure>
           <img
             src="https://media.istockphoto.com/id/1256907593/photo/e-learning.webp?b=1&s=170667a&w=0&k=20&c=l-CJrE8X1t3Vt8x0zfTh_VWzUua-intyRaWJKSebDgU="
-            style={{ height: "390px" }}
+            className="md:h-[390px] h-[16rem] bg-cover"
             alt=""
           />
         </figure>

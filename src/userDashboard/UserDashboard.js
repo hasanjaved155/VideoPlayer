@@ -7,7 +7,7 @@ const UserDashboard = () => {
     <div className="container-fluid m-3 p-2 flex ">
       <div className="flex ">
         <div className="col-md-3 ">
-          <div className="p-12 bg-gray-100 rounded-lg shadow-md w-96 ml-8 fixed ">
+          <div className="p-12 bg-gray-100 rounded-lg shadow-md w-96 ml-8">
             <h4 className="text-lg font-semibold text-gray-800 mb-4">
               User Panel
             </h4>
