@@ -50,7 +50,7 @@ import TeachSignup from "./Instructor/TeachSignup";
 import ProtectedInstructor from "./Instructor/ProtectedInstructor";
 import Thankyou from "./Instructor/Thankyou";
 axios.defaults.baseURL = "http://localhost:8000";
-// axios.defaults.baseURL = "http://107.22.154.213";
+// axios.defaults.baseURL = "https://lms-backend-bcn2.onrender.com";
 
 const App = () => {
   const [playlist, setPlaylist] = useState([]);
