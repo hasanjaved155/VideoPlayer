@@ -49,7 +49,7 @@ import CartGeneralPage from "./Cart/CartGeneral";
 import CourseDescription from "./admindashboard/CourseDescription";
 import ProtectedInstructor from './Instructor/ProtectedInstructor';
 import TeachSignup from './Instructor/TeachSignup';
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://lms-backend-bcn2.onrender.com";
 // axios.defaults.baseURL = "http://107.22.154.213";
 
 const App = () => {
